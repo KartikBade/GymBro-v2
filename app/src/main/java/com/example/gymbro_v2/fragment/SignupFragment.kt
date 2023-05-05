@@ -30,10 +30,11 @@ class SignupFragment : Fragment() {
         binding.btnSignup.setOnClickListener {
             val email = binding.signupEtEmail.text.toString().trim()
             val password = binding.signupEtPassword.text.toString().trim()
+            val phone = binding.signupEtPhone.text.toString().trim()
 
             if (email.isNotBlank() && password.isNotBlank()
             ) {
-                authViewModel.createNewUser(email, password)
+                authViewModel.createNewUser(email, password, phone)
             }
         }
     }

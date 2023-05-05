@@ -1,13 +1,11 @@
 package com.example.gymbro_v2.repository
 
 import android.content.Context
-import com.example.gymbro_v2.model.User
+import com.google.firebase.firestore.FirebaseFirestore
 
 class UserRepository(
-    private val context: Context
+    private val context: Context,
+    private val firebaseDatabase: FirebaseFirestore
 ) {
 
-    fun registerNewUser(user: User) {
-        
-    }
 }

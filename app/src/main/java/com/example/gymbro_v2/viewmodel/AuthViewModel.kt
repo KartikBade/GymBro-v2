@@ -12,9 +12,9 @@ class AuthViewModel @Inject constructor(
     private val authRepository: AuthRepository
 ): ViewModel() {
 
-    fun createNewUser(email: String, password: String) {
+    fun createNewUser(email: String, password: String, phone: String) {
         viewModelScope.launch {
-            authRepository.createNewUser(email, password)
+            authRepository.createNewUser(email, password, phone)
         }
     }
 
