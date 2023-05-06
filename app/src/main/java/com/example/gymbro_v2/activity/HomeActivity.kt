@@ -2,9 +2,13 @@ package com.example.gymbro_v2.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.lifecycle.ViewModelProvider
 import com.example.gymbro_v2.R
+import com.example.gymbro_v2.databinding.ActivityHomeBinding
 import com.example.gymbro_v2.repository.AuthRepository
 import com.example.gymbro_v2.repository.UserRepository
 import com.example.gymbro_v2.viewmodel.AuthViewModel
@@ -18,21 +22,39 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
 
+    lateinit var toggle: ActionBarDrawerToggle
+
     @Inject
     lateinit var userRepository: UserRepository
     lateinit var userViewModel: UserViewModel
+    private lateinit var binding: ActivityHomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
+        binding = ActivityHomeBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val userViewModelProviderFactory = UserViewModelProviderFactory(userRepository)
         userViewModel = ViewModelProvider(this, userViewModelProviderFactory)[UserViewModel::class.java]
 
-        val sh = getSharedPreferences(getString(R.string.user_shared_pref), MODE_PRIVATE)
-        val s1 = sh.getString(getString(R.string.user_shared_pref_username), "User")
+        toggle = ActionBarDrawerToggle(this, binding.homeDrawerLayout, R.string.open, R.string.close)
+        binding.homeDrawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
 
-        val tv = findViewById<TextView>(R.id.tv_demo)
-        tv.text = s1.toString()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        binding.homeNavView.setNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.home_drawer_logout -> Toast.makeText(this, "Halwa", Toast.LENGTH_LONG).show()
+            }
+            true
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (toggle.onOptionsItemSelected(item)) {
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

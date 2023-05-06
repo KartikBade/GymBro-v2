@@ -17,4 +17,8 @@
     <string name="user_firebase_email">email</string>
     <string name="user_firebase_username">username</string>
     <string name="user_firebase_phone">phone</string>
+    <string name="logout">Logout</string>
+
+    <string name="open">Open</string>
+    <string name="close">Close</string>
 </resources>
