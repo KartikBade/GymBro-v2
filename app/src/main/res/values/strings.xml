@@ -10,4 +10,11 @@
     <string name="login">Login</string>
     <string name="welcome_back">Welcome Back!</string>
     <string name="create_account">Create Account</string>
+
+    <string name="user_shared_pref">UserSharedPref</string>
+    <string name="user_shared_pref_username">Username</string>
+
+    <string name="user_firebase_email">email</string>
+    <string name="user_firebase_username">username</string>
+    <string name="user_firebase_phone">phone</string>
 </resources>

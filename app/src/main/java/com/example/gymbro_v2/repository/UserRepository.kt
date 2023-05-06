@@ -5,7 +5,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class UserRepository(
     private val context: Context,
-    private val firebaseDatabase: FirebaseFirestore
 ) {
 
 }

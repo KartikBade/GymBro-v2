@@ -6,10 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".activity.HomeActivity">
 
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/rv_home_list"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />-->
+
     <TextView
+        android:id="@+id/tv_demo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Home Activity"
+        android:text="No User"
         android:gravity="center"
         android:textSize="50sp"/>
 

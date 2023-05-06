@@ -9,6 +9,7 @@ import com.example.gymbro_v2.R
 import com.example.gymbro_v2.activity.AuthActivity
 import com.example.gymbro_v2.databinding.FragmentLoginBinding
 import com.example.gymbro_v2.databinding.FragmentSignupBinding
+import com.example.gymbro_v2.model.User
 import com.example.gymbro_v2.viewmodel.AuthViewModel
 
 class SignupFragment : Fragment() {
@@ -30,11 +31,12 @@ class SignupFragment : Fragment() {
         binding.btnSignup.setOnClickListener {
             val email = binding.signupEtEmail.text.toString().trim()
             val password = binding.signupEtPassword.text.toString().trim()
+            val username = binding.signupEtUsername.text.toString().trim()
             val phone = binding.signupEtPhone.text.toString().trim()
 
             if (email.isNotBlank() && password.isNotBlank()
             ) {
-                authViewModel.createNewUser(email, password, phone)
+                authViewModel.signupUser(User(email, username, phone), password)
             }
         }
     }
