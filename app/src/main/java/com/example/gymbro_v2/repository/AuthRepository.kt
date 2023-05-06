@@ -1,11 +1,14 @@
 package com.example.gymbro_v2.repository
 
+import android.app.Activity
 import android.app.Application
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.util.Log
 import android.widget.Toast
 import com.example.gymbro_v2.R
+import com.example.gymbro_v2.activity.AuthActivity
 import com.example.gymbro_v2.activity.HomeActivity
 import com.example.gymbro_v2.database.UserDatabase
 import com.example.gymbro_v2.model.User
@@ -19,11 +22,12 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
 class AuthRepository(
-    private val context: Application,
+    private val context: Context,
     private val auth: FirebaseAuth,
-    private val firebaseDatabase: FirebaseFirestore,
-    private val userSharedPref: SharedPreferences
+    private val firebaseDatabase: FirebaseFirestore
 ) {
+
+    private val userSharedPref = context.getSharedPreferences(context.getString(R.string.user_shared_pref), 0)
 
     suspend fun signupUser(user: User, password: String) {
         auth.createUserWithEmailAndPassword(user.email, password)
@@ -35,11 +39,6 @@ class AuthRepository(
                         .putString(context.getString(R.string.user_shared_pref_username), user.username)
                         .apply()
 
-                    val intent = Intent(context, HomeActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                    context.startActivity(intent)
-
-                    Log.e("AuthRepo", "User ${auth.currentUser?.displayName} Created")
                 } else {
                     Log.e("AuthRepo", task.exception.toString())
                 }

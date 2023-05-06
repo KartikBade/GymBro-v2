@@ -1,33 +1,27 @@
 package com.example.gymbro_v2.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.lifecycle.ViewModelProvider
 import com.example.gymbro_v2.R
 import com.example.gymbro_v2.databinding.ActivityHomeBinding
-import com.example.gymbro_v2.repository.AuthRepository
 import com.example.gymbro_v2.repository.UserRepository
-import com.example.gymbro_v2.viewmodel.AuthViewModel
-import com.example.gymbro_v2.viewmodel.AuthViewModelProviderFactory
 import com.example.gymbro_v2.viewmodel.UserViewModel
 import com.example.gymbro_v2.viewmodel.UserViewModelProviderFactory
-import com.google.firebase.firestore.ktx.firestore
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
 
-    lateinit var toggle: ActionBarDrawerToggle
-
     @Inject
     lateinit var userRepository: UserRepository
     lateinit var userViewModel: UserViewModel
     private lateinit var binding: ActivityHomeBinding
+    private lateinit var toggle: ActionBarDrawerToggle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +39,17 @@ class HomeActivity : AppCompatActivity() {
 
         binding.homeNavView.setNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.home_drawer_logout -> Toast.makeText(this, "Halwa", Toast.LENGTH_LONG).show()
+                R.id.home_drawer_logout -> {
+                    userViewModel.logout()
+                    if (
+                        getSharedPreferences(getString(R.string.user_shared_pref), 0)
+                            .getString(getString(R.string.user_shared_pref_username), null).isNullOrBlank()
+                    ) {
+                        val intent = Intent(this, AuthActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
+                }
             }
             true
         }

@@ -3,7 +3,6 @@ package com.example.gymbro_v2.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -13,7 +12,6 @@ import com.example.gymbro_v2.databinding.ActivityAuthBinding
 import com.example.gymbro_v2.repository.AuthRepository
 import com.example.gymbro_v2.viewmodel.AuthViewModel
 import com.example.gymbro_v2.viewmodel.AuthViewModelProviderFactory
-import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
