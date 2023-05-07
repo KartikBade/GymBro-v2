@@ -4,10 +4,13 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.lifecycle.ViewModelProvider
 import com.example.gymbro_v2.R
+import com.example.gymbro_v2.adapter.ExerciseAdapter
 import com.example.gymbro_v2.databinding.ActivityHomeBinding
+import com.example.gymbro_v2.model.Exercise
 import com.example.gymbro_v2.repository.UserRepository
 import com.example.gymbro_v2.viewmodel.UserViewModel
 import com.example.gymbro_v2.viewmodel.UserViewModelProviderFactory
@@ -52,6 +55,19 @@ class HomeActivity : AppCompatActivity() {
                 }
             }
             true
+        }
+
+        val exerciseAdapter = ExerciseAdapter {}
+        binding.homeRvMain.adapter = exerciseAdapter
+        userViewModel.getAllExercise().observe(this) {
+            exerciseAdapter.submitList(it)
+            if (exerciseAdapter.itemCount <= 0) {
+                binding.homeTvEmptyRv.visibility = View.VISIBLE
+            }
+        }
+
+        binding.homeFabAddExercise.setOnClickListener {
+            userViewModel.insertExercise(Exercise("Test Exercise", "Sample Description: 3 sets of 10 reps"))
         }
     }
 

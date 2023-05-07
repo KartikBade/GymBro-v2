@@ -21,4 +21,6 @@
 
     <string name="open">Open</string>
     <string name="close">Close</string>
+    <string name="add_exercise">Add Exercise</string>
+    <string name="no_exercises_found">No Exercises Found.</string>
 </resources>

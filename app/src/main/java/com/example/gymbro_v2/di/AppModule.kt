@@ -1,6 +1,7 @@
 package com.example.gymbro_v2.di
 
 import android.app.Application
+import com.example.gymbro_v2.database.ExerciseDatabase
 import com.example.gymbro_v2.repository.AuthRepository
 import com.example.gymbro_v2.repository.UserRepository
 import com.google.firebase.auth.FirebaseAuth
@@ -31,7 +32,8 @@ object AppModule {
     fun provideUserRepository(context: Application): UserRepository {
         return UserRepository(
             context,
-            FirebaseAuth.getInstance()
+            FirebaseAuth.getInstance(),
+            ExerciseDatabase.getDatabase(context)
         )
     }
 }

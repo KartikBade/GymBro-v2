@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.example.gymbro_v2.model.Exercise
 import com.example.gymbro_v2.repository.UserRepository
 import dagger.hilt.android.scopes.ActivityScoped
 import kotlinx.coroutines.launch
@@ -17,6 +18,14 @@ class UserViewModel @Inject constructor(
     fun logout() {
         userRepository.logout()
     }
+
+    fun insertExercise(exercise: Exercise) {
+        viewModelScope.launch {
+            userRepository.insertExercise(exercise)
+        }
+    }
+
+    fun getAllExercise() = userRepository.getAllExercise()
 }
 
 class UserViewModelProviderFactory(

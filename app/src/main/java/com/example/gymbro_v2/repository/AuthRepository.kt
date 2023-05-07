@@ -10,7 +10,6 @@ import android.widget.Toast
 import com.example.gymbro_v2.R
 import com.example.gymbro_v2.activity.AuthActivity
 import com.example.gymbro_v2.activity.HomeActivity
-import com.example.gymbro_v2.database.UserDatabase
 import com.example.gymbro_v2.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
