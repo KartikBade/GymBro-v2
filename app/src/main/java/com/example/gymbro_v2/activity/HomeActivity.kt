@@ -57,12 +57,16 @@ class HomeActivity : AppCompatActivity() {
             true
         }
 
-        val exerciseAdapter = ExerciseAdapter {}
+        val exerciseAdapter = ExerciseAdapter {
+            userViewModel.deleteExercise(it)
+        }
         binding.homeRvMain.adapter = exerciseAdapter
         userViewModel.getAllExercise().observe(this) {
             exerciseAdapter.submitList(it)
-            if (exerciseAdapter.itemCount <= 0) {
+            if (it.isEmpty()) {
                 binding.homeTvEmptyRv.visibility = View.VISIBLE
+            } else {
+                binding.homeTvEmptyRv.visibility = View.GONE
             }
         }
 

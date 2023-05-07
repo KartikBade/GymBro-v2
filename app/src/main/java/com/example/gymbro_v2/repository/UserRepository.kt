@@ -33,4 +33,8 @@ class UserRepository(
     }
 
     fun getAllExercise() = exerciseDatabase.getDao().getAllExercises()
+
+    suspend fun deleteExercise(exercise: Exercise) {
+        exerciseDatabase.getDao().deleteExercise(exercise)
+    }
 }

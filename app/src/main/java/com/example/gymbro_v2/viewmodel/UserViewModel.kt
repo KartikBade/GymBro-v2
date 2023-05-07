@@ -26,6 +26,12 @@ class UserViewModel @Inject constructor(
     }
 
     fun getAllExercise() = userRepository.getAllExercise()
+
+    fun deleteExercise(exercise: Exercise) {
+        viewModelScope.launch {
+            userRepository.deleteExercise(exercise)
+        }
+    }
 }
 
 class UserViewModelProviderFactory(
