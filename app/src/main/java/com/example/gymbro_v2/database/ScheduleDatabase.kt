@@ -4,21 +4,21 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.gymbro_v2.model.Exercise
+import com.example.gymbro_v2.model.Schedule
 
-@Database([Exercise::class], version = 1)
-abstract class ExerciseDatabase: RoomDatabase() {
-    abstract fun getDao(): ExerciseDao
+@Database([Schedule::class], version = 1)
+abstract class ScheduleDatabase: RoomDatabase() {
+    abstract fun getDao(): ScheduleDao
 
     companion object {
         @Volatile
-        private var INSTANCE: ExerciseDatabase? = null
+        private var INSTANCE: ScheduleDatabase? = null
 
-        fun getDatabase(context: Context): ExerciseDatabase {
+        fun getDatabase(context: Context): ScheduleDatabase {
             return (INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    ExerciseDatabase::class.java,
+                    ScheduleDatabase::class.java,
                     "exerciseDb"
                 ).build()
                 INSTANCE = instance

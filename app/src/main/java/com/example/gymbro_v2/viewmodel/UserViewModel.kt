@@ -1,13 +1,10 @@
 package com.example.gymbro_v2.viewmodel
 
-import android.app.Activity
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.gymbro_v2.model.Exercise
+import com.example.gymbro_v2.model.Schedule
 import com.example.gymbro_v2.repository.UserRepository
-import dagger.hilt.android.scopes.ActivityScoped
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,17 +16,17 @@ class UserViewModel @Inject constructor(
         userRepository.logout()
     }
 
-    fun insertExercise(exercise: Exercise) {
+    fun insertExercise(schedule: Schedule) {
         viewModelScope.launch {
-            userRepository.insertExercise(exercise)
+            userRepository.insertSchedule(schedule)
         }
     }
 
-    fun getAllExercise() = userRepository.getAllExercise()
+    fun getAllExercise() = userRepository.getAllSchedule()
 
-    fun deleteExercise(exercise: Exercise) {
+    fun deleteExercise(schedule: Schedule) {
         viewModelScope.launch {
-            userRepository.deleteExercise(exercise)
+            userRepository.deleteSchedule(schedule)
         }
     }
 }

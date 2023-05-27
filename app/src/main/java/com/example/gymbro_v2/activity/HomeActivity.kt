@@ -8,9 +8,9 @@ import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.lifecycle.ViewModelProvider
 import com.example.gymbro_v2.R
-import com.example.gymbro_v2.adapter.ExerciseAdapter
+import com.example.gymbro_v2.adapter.ScheduleAdapter
 import com.example.gymbro_v2.databinding.ActivityHomeBinding
-import com.example.gymbro_v2.model.Exercise
+import com.example.gymbro_v2.model.Schedule
 import com.example.gymbro_v2.repository.UserRepository
 import com.example.gymbro_v2.viewmodel.UserViewModel
 import com.example.gymbro_v2.viewmodel.UserViewModelProviderFactory
@@ -57,7 +57,7 @@ class HomeActivity : AppCompatActivity() {
             true
         }
 
-        val exerciseAdapter = ExerciseAdapter {
+        val exerciseAdapter = ScheduleAdapter(this) {
             userViewModel.deleteExercise(it)
         }
         binding.homeRvMain.adapter = exerciseAdapter
@@ -71,7 +71,8 @@ class HomeActivity : AppCompatActivity() {
         }
 
         binding.homeFabAddExercise.setOnClickListener {
-            userViewModel.insertExercise(Exercise("Test Exercise", "Sample Description: 3 sets of 10 reps"))
+            userViewModel.insertExercise(Schedule("Push", "Train your pushing muscles like the chest, triceps and shoulders.", "Mon, Thu"))
+            userViewModel.insertExercise(Schedule("Pull", "Train your pulling muscles like the back and biceps.", "Tue, Sat"))
         }
     }
 

@@ -1,22 +1,16 @@
 package com.example.gymbro_v2.repository
 
-import android.app.Activity
-import android.app.Application
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.util.Log
 import android.widget.Toast
 import com.example.gymbro_v2.R
-import com.example.gymbro_v2.activity.AuthActivity
 import com.example.gymbro_v2.activity.HomeActivity
 import com.example.gymbro_v2.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
