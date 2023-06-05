@@ -12,9 +12,9 @@ import com.example.gymbro_v2.model.Schedule
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ScheduleAdapter(private val context: Context, private val checkboxClickListener: (Schedule) -> Unit): ListAdapter<Schedule, ScheduleAdapter.ExerciseAdapterViewHolder>(DiffCallBack) {
+class ScheduleAdapter(private val context: Context, private val checkboxClickListener: (Schedule) -> Unit): ListAdapter<Schedule, ScheduleAdapter.ScheduleAdapterViewHolder>(DiffCallBack) {
 
-    class ExerciseAdapterViewHolder(
+    class ScheduleAdapterViewHolder(
         val binding: HomeRvMainListItemBinding
     ): RecyclerView.ViewHolder(binding.root) {
         fun bind(context: Context, schedule: Schedule) {
@@ -42,11 +42,11 @@ class ScheduleAdapter(private val context: Context, private val checkboxClickLis
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExerciseAdapterViewHolder {
-        return ExerciseAdapterViewHolder(HomeRvMainListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScheduleAdapterViewHolder {
+        return ScheduleAdapterViewHolder(HomeRvMainListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
-    override fun onBindViewHolder(holder: ExerciseAdapterViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ScheduleAdapterViewHolder, position: Int) {
         holder.bind(context, getItem(position))
         holder.binding.homeListItemConstraintParent.setOnClickListener {
             checkboxClickListener(getItem(position))
@@ -59,7 +59,7 @@ class ScheduleAdapter(private val context: Context, private val checkboxClickLis
         }
 
         override fun areContentsTheSame(oldItem: Schedule, newItem: Schedule): Boolean {
-            return oldItem == newItem
+            return oldItem.description == newItem.description && oldItem.daysPlannedOn == newItem.daysPlannedOn && oldItem.totalExercises == newItem.totalExercises
         }
     }
 }

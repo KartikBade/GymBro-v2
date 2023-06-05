@@ -75,9 +75,9 @@
             android:orientation="horizontal"
             android:layout_marginTop="25dp"
             android:padding="8dp"
-            app:layout_constraintEnd_toEndOf="@+id/signup_til_email"
-            app:layout_constraintStart_toStartOf="@+id/signup_til_email"
-            app:layout_constraintTop_toBottomOf="@id/signup_til_email"
+            app:layout_constraintEnd_toEndOf="@+id/add_schedule_til_description"
+            app:layout_constraintStart_toStartOf="@+id/add_schedule_til_description"
+            app:layout_constraintTop_toBottomOf="@id/add_schedule_til_description"
             android:baselineAligned="false">
 
             <LinearLayout
@@ -88,21 +88,25 @@
                 android:orientation="vertical">
 
                 <CheckBox
+                    android:id="@+id/monday"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/monday" />
 
                 <CheckBox
+                    android:id="@+id/wednesday"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/wednesday" />
 
                 <CheckBox
+                    android:id="@+id/friday"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/friday" />
 
                 <CheckBox
+                    android:id="@+id/sunday"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/sunday" />
@@ -117,16 +121,19 @@
                 android:orientation="vertical">
 
                 <CheckBox
+                    android:id="@+id/tuesday"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/tuesday" />
 
                 <CheckBox
+                    android:id="@+id/thursday"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/thursday" />
 
                 <CheckBox
+                    android:id="@+id/saturday"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/saturday" />

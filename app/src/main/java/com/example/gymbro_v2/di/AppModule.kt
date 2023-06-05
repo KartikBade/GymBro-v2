@@ -1,6 +1,7 @@
 package com.example.gymbro_v2.di
 
 import android.app.Application
+import androidx.lifecycle.ViewModelProvider
 import com.example.gymbro_v2.database.ScheduleDatabase
 import com.example.gymbro_v2.repository.AuthRepository
 import com.example.gymbro_v2.repository.UserRepository
