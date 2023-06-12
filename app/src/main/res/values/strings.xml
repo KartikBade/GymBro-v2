@@ -43,5 +43,7 @@
     <string name="monday">Monday</string>
     <string name="enter_schedule_description">Enter Schedule Description</string>
     <string name="enter_schedule_name">Enter Schedule Name</string>
+    <string name="edit_schedule">Edit Schedule</string>
+    <string name="delete">Delete</string>
 
 </resources>

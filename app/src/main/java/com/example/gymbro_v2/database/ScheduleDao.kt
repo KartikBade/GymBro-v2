@@ -13,6 +13,9 @@ interface ScheduleDao {
     @Query("SELECT * FROM schedules")
     fun getAllSchedules(): LiveData<List<Schedule>>
 
-    @Delete
-    suspend fun deleteSchedule(schedule: Schedule)
+    @Query("DELETE FROM schedules WHERE name = :scheduleName")
+    suspend fun deleteSchedule(scheduleName: String)
+
+    @Query("UPDATE schedules SET name = :newName, description  = :description, daysPlannedOn = :daysPlannedOn WHERE name = :oldName")
+    suspend fun editSchedule(oldName: String, newName: String, description: String, daysPlannedOn: String)
 }

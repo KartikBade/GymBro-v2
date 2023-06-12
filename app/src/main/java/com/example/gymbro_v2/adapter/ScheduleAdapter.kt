@@ -38,7 +38,6 @@ class ScheduleAdapter(private val context: Context, private val checkboxClickLis
                 binding.homeListItemTvTotalExercises.setTextColor(context.getColor(R.color.black))
                 binding.homeListItemLinearParent.setBackgroundColor(context.getColor(R.color.purple_500))
             }
-
         }
     }
 

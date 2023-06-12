@@ -25,7 +25,11 @@ class UserRepository(
 
     fun getAllSchedule() = scheduleDatabase.getDao().getAllSchedules()
 
-    suspend fun deleteSchedule(schedule: Schedule) {
-        scheduleDatabase.getDao().deleteSchedule(schedule)
+    suspend fun deleteSchedule(scheduleName: String) {
+        scheduleDatabase.getDao().deleteSchedule(scheduleName)
+    }
+
+    suspend fun editSchedule(oldName: String, newName: String, description: String, daysPlannedOn: String) {
+        scheduleDatabase.getDao().editSchedule(oldName, newName, description, daysPlannedOn)
     }
 }

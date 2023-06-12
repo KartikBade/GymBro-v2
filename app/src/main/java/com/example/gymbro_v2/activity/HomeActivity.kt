@@ -58,8 +58,11 @@ class HomeActivity : AppCompatActivity() {
         }
 
         val scheduleAdapter = ScheduleAdapter(this) {
-            homeViewModel.deleteSchedule(it)
+            val intent = Intent(this, EditScheduleActivity::class.java)
+            intent.putExtra("oldScheduleName", it.name)
+            startActivity(intent)
         }
+
         binding.homeRvMain.adapter = scheduleAdapter
         homeViewModel.getAllSchedule().observe(this) {
             scheduleAdapter.submitList(it)

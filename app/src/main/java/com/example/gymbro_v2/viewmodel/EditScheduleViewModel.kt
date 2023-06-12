@@ -8,21 +8,27 @@ import com.example.gymbro_v2.repository.UserRepository
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class HomeViewModel @Inject constructor(
+class EditScheduleViewModel @Inject constructor(
     private val userRepository: UserRepository
 ): ViewModel() {
 
-    fun logout() {
-        userRepository.logout()
+    fun editSchedule(oldName: String, newName: String, description: String, daysPlannedOn: String) {
+        viewModelScope.launch {
+            userRepository.editSchedule(oldName, newName, description, daysPlannedOn)
+        }
     }
 
-    fun getAllSchedule() = userRepository.getAllSchedule()
+    fun deleteSchedule(scheduleName: String) {
+        viewModelScope.launch {
+            userRepository.deleteSchedule(scheduleName)
+        }
+    }
 }
 
-class HomeViewModelProviderFactory(
+class EditScheduleViewModelProviderFactory(
     private val userRepository: UserRepository
 ): ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return HomeViewModel(userRepository) as T
+        return EditScheduleViewModel(userRepository) as T
     }
 }
