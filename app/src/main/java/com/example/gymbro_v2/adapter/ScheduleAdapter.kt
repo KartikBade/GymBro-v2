@@ -47,14 +47,14 @@ class ScheduleAdapter(private val context: Context, private val checkboxClickLis
 
     override fun onBindViewHolder(holder: ScheduleAdapterViewHolder, position: Int) {
         holder.bind(context, getItem(position))
-        holder.binding.homeListItemConstraintParent.setOnClickListener {
+        holder.binding.ivEditSchedule.setOnClickListener {
             checkboxClickListener(getItem(position))
         }
     }
 
     companion object DiffCallBack: DiffUtil.ItemCallback<Schedule>() {
         override fun areItemsTheSame(oldItem: Schedule, newItem: Schedule): Boolean {
-            return oldItem.name == newItem.name
+            return oldItem == newItem
         }
 
         override fun areContentsTheSame(oldItem: Schedule, newItem: Schedule): Boolean {

@@ -61,6 +61,7 @@ class HomeActivity : AppCompatActivity() {
             val intent = Intent(this, EditScheduleActivity::class.java)
             intent.putExtra("oldScheduleName", it.name)
             startActivity(intent)
+            finish()
         }
 
         binding.homeRvMain.adapter = scheduleAdapter

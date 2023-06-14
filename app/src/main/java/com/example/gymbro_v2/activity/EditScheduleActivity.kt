@@ -1,5 +1,6 @@
 package com.example.gymbro_v2.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -12,6 +13,7 @@ import com.example.gymbro_v2.viewmodel.AddScheduleViewModelProviderFactory
 import com.example.gymbro_v2.viewmodel.EditScheduleViewModel
 import com.example.gymbro_v2.viewmodel.EditScheduleViewModelProviderFactory
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -50,6 +52,8 @@ class EditScheduleActivity : AppCompatActivity() {
 
         binding.deleteScheduleButton.setOnClickListener {
             editScheduleViewModel.deleteSchedule(scheduleName)
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
             finish()
         }
     }
