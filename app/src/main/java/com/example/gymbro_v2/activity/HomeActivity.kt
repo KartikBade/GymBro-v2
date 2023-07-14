@@ -60,6 +60,8 @@ class HomeActivity : AppCompatActivity() {
         val scheduleAdapter = ScheduleAdapter(this) {
             val intent = Intent(this, EditScheduleActivity::class.java)
             intent.putExtra("oldScheduleName", it.name)
+            intent.putExtra("oldScheduleDescription", it.description)
+            intent.putExtra("oldScheduleDaysPlannedOn", it.daysPlannedOn)
             startActivity(intent)
             finish()
         }

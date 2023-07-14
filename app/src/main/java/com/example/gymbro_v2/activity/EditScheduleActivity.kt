@@ -33,6 +33,18 @@ class EditScheduleActivity : AppCompatActivity() {
         editScheduleViewModel = ViewModelProvider(this, editScheduleViewModelProviderFactory)[EditScheduleViewModel::class.java]
 
         val scheduleName = intent.getStringExtra("oldScheduleName").toString()
+        val scheduleDescription = intent.getStringExtra("oldScheduleDescription").toString()
+        val scheduleDaysPlannedOn = intent.getStringExtra("oldScheduleDaysPlannedOn").toString()
+
+        binding.editScheduleEtName.setText(scheduleName)
+        binding.editScheduleEtDescription.setText(scheduleDescription)
+        if (scheduleDaysPlannedOn.contains("Mon")) { binding.monday.isChecked = true }
+        if (scheduleDaysPlannedOn.contains("Tue")) { binding.tuesday.isChecked = true }
+        if (scheduleDaysPlannedOn.contains("Wed")) { binding.wednesday.isChecked = true }
+        if (scheduleDaysPlannedOn.contains("Thu")) { binding.thursday.isChecked = true }
+        if (scheduleDaysPlannedOn.contains("Fri")) { binding.friday.isChecked = true }
+        if (scheduleDaysPlannedOn.contains("Sat")) { binding.saturday.isChecked = true }
+        if (scheduleDaysPlannedOn.contains("Sun")) { binding.sunday.isChecked = true }
 
         binding.saveScheduleButton.setOnClickListener {
             val newScheduleName = binding.editScheduleEtName.text.toString()
