@@ -25,7 +25,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/home_list_item_tv_exercise_title"
+                    android:id="@+id/home_list_item_tv_schedule_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/material_dynamic_neutral50"
@@ -44,16 +44,16 @@
                     android:id="@+id/iv_edit_schedule"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginEnd="15dp"
                     android:src="@drawable/baseline_edit_24_white"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/home_list_item_tv_exercise_title"
+                    app:layout_constraintEnd_toEndOf="@+id/home_list_item_tv_schedule_title"
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/home_list_item_tv_exercise_description"
+                android:id="@+id/home_list_item_tv_schedule_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -69,21 +69,28 @@
                 tools:text="Train your pushing muscles like the chest, triceps and shoulders." />
 
             <TextView
-                android:id="@+id/home_list_item_tv_total_exercises"
+                android:id="@+id/home_list_item_tv_total_exercises_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
                 android:gravity="center_vertical"
                 android:paddingStart="8dp"
-                android:paddingEnd="8dp"
                 android:paddingBottom="8dp"
                 android:textSize="14sp"
-                android:lineSpacingExtra="5dp"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/home_list_item_tv_exercise_description"
-                tools:text="Total Exercises: 5" />
+                app:layout_constraintTop_toBottomOf="@id/home_list_item_tv_schedule_description"
+                tools:text="Total Exercises :" />
+
+            <TextView
+                android:id="@+id/home_list_item_tv_total_exercises"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="5"
+                android:textSize="14sp"
+                android:paddingBottom="8dp"
+                android:layout_marginStart="3dp"
+                app:layout_constraintStart_toEndOf="@+id/home_list_item_tv_total_exercises_title"
+                app:layout_constraintTop_toBottomOf="@+id/home_list_item_tv_schedule_description" />
 
             <LinearLayout
                 android:id="@+id/home_list_item_linear_parent"

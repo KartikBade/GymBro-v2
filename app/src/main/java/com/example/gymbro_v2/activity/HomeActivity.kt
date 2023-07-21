@@ -57,14 +57,23 @@ class HomeActivity : AppCompatActivity() {
             true
         }
 
-        val scheduleAdapter = ScheduleAdapter(this) {
-            val intent = Intent(this, EditScheduleActivity::class.java)
-            intent.putExtra("oldScheduleName", it.name)
-            intent.putExtra("oldScheduleDescription", it.description)
-            intent.putExtra("oldScheduleDaysPlannedOn", it.daysPlannedOn)
-            startActivity(intent)
-            finish()
-        }
+        val scheduleAdapter = ScheduleAdapter(
+            this,
+            editScheduleClickListener = {
+                val intent = Intent(this, EditScheduleActivity::class.java)
+                intent.putExtra("oldScheduleName", it.name)
+                intent.putExtra("oldScheduleDescription", it.description)
+                intent.putExtra("oldScheduleDaysPlannedOn", it.daysPlannedOn)
+                startActivity(intent)
+                finish()
+            },
+            scheduleClickListener = {
+                val intent = Intent(this, ScheduleActivity::class.java)
+                intent.putExtra("scheduleName", it.name)
+                startActivity(intent)
+                finish()
+            }
+        )
 
         binding.homeRvMain.adapter = scheduleAdapter
         homeViewModel.getAllSchedule().observe(this) {
@@ -76,7 +85,7 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
-        binding.homeFabAddExercise.setOnClickListener {
+        binding.homeFabAddSchedule.setOnClickListener {
             val intent = Intent(this, AddScheduleActivity::class.java)
             startActivity(intent)
         }

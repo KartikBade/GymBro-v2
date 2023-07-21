@@ -24,7 +24,7 @@
     <string name="add_exercise">Add Exercise</string>
     <string name="no_exercises_found">No Exercises Found.</string>
 
-    <string name="total_exercises">Total Exercises: %d</string>
+    <string name="total_exercises">Total Exercises :</string>
     <string name="working_days">Working Days:</string>
     <string name="mon">M</string>
     <string name="tue">T</string>
@@ -45,5 +45,7 @@
     <string name="enter_schedule_name">Enter Schedule Name</string>
     <string name="edit_schedule">Edit Schedule</string>
     <string name="delete">Delete</string>
+    <string name="sets">Sets</string>
+    <string name="reps">Reps</string>
 
 </resources>

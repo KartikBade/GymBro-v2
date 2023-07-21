@@ -3,9 +3,9 @@ package com.example.gymbro_v2.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity("schedules")
+@Entity
 data class Schedule(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = false)
     val name: String,
     val description: String,
     val daysPlannedOn: String,

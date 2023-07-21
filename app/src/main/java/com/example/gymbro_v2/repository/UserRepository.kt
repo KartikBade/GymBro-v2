@@ -14,9 +14,10 @@ class UserRepository(
 
     private val userSharedPref = context.getSharedPreferences(context.getString(R.string.user_shared_pref), 0)
 
-    fun logout() {
+    suspend fun logout() {
         firebaseAuth.signOut()
         userSharedPref.edit().remove(context.getString(R.string.user_shared_pref_username)).apply()
+        scheduleDatabase.getDao().deleteAllSchedules()
     }
 
     suspend fun insertSchedule(schedule: Schedule) {

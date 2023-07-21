@@ -12,14 +12,17 @@ import com.example.gymbro_v2.model.Schedule
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ScheduleAdapter(private val context: Context, private val checkboxClickListener: (Schedule) -> Unit): ListAdapter<Schedule, ScheduleAdapter.ScheduleAdapterViewHolder>(DiffCallBack) {
+class ScheduleAdapter(
+    private val context: Context,
+    private val editScheduleClickListener: (Schedule) -> Unit,
+    private val scheduleClickListener: (Schedule) -> Unit): ListAdapter<Schedule, ScheduleAdapter.ScheduleAdapterViewHolder>(DiffCallBack) {
 
     class ScheduleAdapterViewHolder(
         val binding: HomeRvMainListItemBinding
     ): RecyclerView.ViewHolder(binding.root) {
         fun bind(context: Context, schedule: Schedule) {
-            binding.homeListItemTvExerciseTitle.text = schedule.name
-            binding.homeListItemTvExerciseDescription.text = schedule.description
+            binding.homeListItemTvScheduleTitle.text = schedule.name
+            binding.homeListItemTvScheduleDescription.text = schedule.description
             val daysPlannedOn = schedule.daysPlannedOn
             if (daysPlannedOn.contains("Mon")) { binding.monday.setTextColor(context.getColor(R.color.white)) }
             if (daysPlannedOn.contains("Tue")) { binding.tuesday.setTextColor(context.getColor(R.color.white)) }
@@ -28,13 +31,15 @@ class ScheduleAdapter(private val context: Context, private val checkboxClickLis
             if (daysPlannedOn.contains("Fri")) { binding.friday.setTextColor(context.getColor(R.color.white)) }
             if (daysPlannedOn.contains("Sat")) { binding.saturday.setTextColor(context.getColor(R.color.white)) }
             if (daysPlannedOn.contains("Sun")) { binding.sunday.setTextColor(context.getColor(R.color.white)) }
-            binding.homeListItemTvTotalExercises.text = context.getString(R.string.total_exercises, schedule.totalExercises)
+            binding.homeListItemTvTotalExercisesTitle.text = context.getString(R.string.total_exercises)
+            binding.homeListItemTvTotalExercises.text = schedule.totalExercises.toString()
             val sdf = SimpleDateFormat("EEE")
             val d = Date()
             val dayOfTheWeek: String = sdf.format(d)
             if (daysPlannedOn.contains(dayOfTheWeek)) {
-                binding.homeListItemTvExerciseTitle.setBackgroundColor(context.getColor(R.color.purple_500))
-                binding.homeListItemTvExerciseDescription.setTextColor(context.getColor(R.color.black))
+                binding.homeListItemTvScheduleTitle.setBackgroundColor(context.getColor(R.color.purple_500))
+                binding.homeListItemTvScheduleDescription.setTextColor(context.getColor(R.color.black))
+                binding.homeListItemTvTotalExercisesTitle.setTextColor(context.getColor(R.color.black))
                 binding.homeListItemTvTotalExercises.setTextColor(context.getColor(R.color.black))
                 binding.homeListItemLinearParent.setBackgroundColor(context.getColor(R.color.purple_500))
             }
@@ -48,7 +53,10 @@ class ScheduleAdapter(private val context: Context, private val checkboxClickLis
     override fun onBindViewHolder(holder: ScheduleAdapterViewHolder, position: Int) {
         holder.bind(context, getItem(position))
         holder.binding.ivEditSchedule.setOnClickListener {
-            checkboxClickListener(getItem(position))
+            editScheduleClickListener(getItem(position))
+        }
+        holder.binding.homeListItemConstraintParent.setOnClickListener {
+            scheduleClickListener(getItem(position))
         }
     }
 
