@@ -1,11 +1,6 @@
 package com.example.gymbro_v2.model
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-
-@Entity
-data class Schedule(
-    @PrimaryKey(autoGenerate = false)
+class Schedule(
     val name: String,
     val description: String,
     val daysPlannedOn: String,
