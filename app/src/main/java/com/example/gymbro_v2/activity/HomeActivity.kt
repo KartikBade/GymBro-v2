@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.gymbro_v2.R
 import com.example.gymbro_v2.adapter.ScheduleAdapter
 import com.example.gymbro_v2.databinding.ActivityHomeBinding
-import com.example.gymbro_v2.model.Schedule
 import com.example.gymbro_v2.repository.UserRepository
 import com.example.gymbro_v2.viewmodel.HomeViewModel
 import com.example.gymbro_v2.viewmodel.HomeViewModelProviderFactory
@@ -61,15 +60,15 @@ class HomeActivity : AppCompatActivity() {
             this,
             editScheduleClickListener = {
                 val intent = Intent(this, EditScheduleActivity::class.java)
-                intent.putExtra("oldScheduleName", it.name)
-                intent.putExtra("oldScheduleDescription", it.description)
-                intent.putExtra("oldScheduleDaysPlannedOn", it.daysPlannedOn)
+                intent.putExtra("oldScheduleName", it.scheduleName)
+                intent.putExtra("oldScheduleDescription", it.scheduleDescription)
+                intent.putExtra("oldScheduleDaysPlannedOn", it.scheduleDaysPlannedOn)
                 startActivity(intent)
                 finish()
             },
             scheduleClickListener = {
                 val intent = Intent(this, ScheduleActivity::class.java)
-                intent.putExtra("scheduleName", it.name)
+                intent.putExtra("scheduleName", it.scheduleName)
                 startActivity(intent)
                 finish()
             }

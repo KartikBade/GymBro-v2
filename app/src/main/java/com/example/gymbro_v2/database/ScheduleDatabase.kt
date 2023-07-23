@@ -4,9 +4,18 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.gymbro_v2.model.Schedule
+import com.example.gymbro_v2.database.entities.Exercise
+import com.example.gymbro_v2.database.entities.Schedule
+import com.example.gymbro_v2.database.relations.ScheduleExerciseCrossRef
 
-@Database([Schedule::class], version = 1)
+@Database(
+    entities = [
+        Schedule::class,
+        Exercise::class,
+        ScheduleExerciseCrossRef::class
+               ],
+    version = 1
+)
 abstract class ScheduleDatabase: RoomDatabase() {
     abstract fun getDao(): ScheduleDao
 

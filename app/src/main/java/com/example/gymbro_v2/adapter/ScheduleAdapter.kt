@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gymbro_v2.R
+import com.example.gymbro_v2.database.entities.Schedule
 import com.example.gymbro_v2.databinding.HomeRvMainListItemBinding
-import com.example.gymbro_v2.model.Schedule
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -21,9 +21,9 @@ class ScheduleAdapter(
         val binding: HomeRvMainListItemBinding
     ): RecyclerView.ViewHolder(binding.root) {
         fun bind(context: Context, schedule: Schedule) {
-            binding.homeListItemTvScheduleTitle.text = schedule.name
-            binding.homeListItemTvScheduleDescription.text = schedule.description
-            val daysPlannedOn = schedule.daysPlannedOn
+            binding.homeListItemTvScheduleTitle.text = schedule.scheduleName
+            binding.homeListItemTvScheduleDescription.text = schedule.scheduleDescription
+            val daysPlannedOn = schedule.scheduleDaysPlannedOn
             if (daysPlannedOn.contains("Mon")) { binding.monday.setTextColor(context.getColor(R.color.white)) }
             if (daysPlannedOn.contains("Tue")) { binding.tuesday.setTextColor(context.getColor(R.color.white)) }
             if (daysPlannedOn.contains("Wed")) { binding.wednesday.setTextColor(context.getColor(R.color.white)) }
@@ -32,7 +32,7 @@ class ScheduleAdapter(
             if (daysPlannedOn.contains("Sat")) { binding.saturday.setTextColor(context.getColor(R.color.white)) }
             if (daysPlannedOn.contains("Sun")) { binding.sunday.setTextColor(context.getColor(R.color.white)) }
             binding.homeListItemTvTotalExercisesTitle.text = context.getString(R.string.total_exercises)
-            binding.homeListItemTvTotalExercises.text = schedule.totalExercises.toString()
+            binding.homeListItemTvTotalExercises.text = schedule.scheduleTotalExercises.toString()
             val sdf = SimpleDateFormat("EEE")
             val d = Date()
             val dayOfTheWeek: String = sdf.format(d)
@@ -66,7 +66,7 @@ class ScheduleAdapter(
         }
 
         override fun areContentsTheSame(oldItem: Schedule, newItem: Schedule): Boolean {
-            return oldItem.description == newItem.description && oldItem.daysPlannedOn == newItem.daysPlannedOn && oldItem.totalExercises == newItem.totalExercises
+            return oldItem.scheduleDescription == newItem.scheduleDescription && oldItem.scheduleDaysPlannedOn == newItem.scheduleDaysPlannedOn && oldItem.scheduleTotalExercises == newItem.scheduleTotalExercises
         }
     }
 }

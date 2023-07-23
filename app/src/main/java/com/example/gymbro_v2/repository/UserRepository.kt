@@ -3,7 +3,7 @@ package com.example.gymbro_v2.repository
 import android.content.Context
 import com.example.gymbro_v2.R
 import com.example.gymbro_v2.database.ScheduleDatabase
-import com.example.gymbro_v2.model.Schedule
+import com.example.gymbro_v2.database.entities.Schedule
 import com.google.firebase.auth.FirebaseAuth
 
 class UserRepository(

@@ -6,8 +6,8 @@ import androidx.room.PrimaryKey
 @Entity
 data class Schedule(
     @PrimaryKey(autoGenerate = false)
-    val name: String,
-    val description: String,
-    val daysPlannedOn: String,
-    val totalExercises: Int = 0
+    val scheduleName: String,
+    val scheduleDescription: String,
+    val scheduleDaysPlannedOn: String,
+    val scheduleTotalExercises: Int = 0
 )

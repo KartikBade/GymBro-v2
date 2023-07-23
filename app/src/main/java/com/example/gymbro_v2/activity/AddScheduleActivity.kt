@@ -3,14 +3,12 @@ package com.example.gymbro_v2.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
-import com.example.gymbro_v2.R
+import com.example.gymbro_v2.database.entities.Schedule
+
 import com.example.gymbro_v2.databinding.ActivityAddScheduleBinding
-import com.example.gymbro_v2.model.Schedule
 import com.example.gymbro_v2.repository.UserRepository
 import com.example.gymbro_v2.viewmodel.AddScheduleViewModel
 import com.example.gymbro_v2.viewmodel.AddScheduleViewModelProviderFactory
-import com.example.gymbro_v2.viewmodel.HomeViewModel
-import com.example.gymbro_v2.viewmodel.HomeViewModelProviderFactory
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
