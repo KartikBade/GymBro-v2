@@ -17,7 +17,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun getAllSchedule() = userRepository.getAllSchedule()
+    fun getAllSchedules() = userRepository.getAllSchedules()
 }
 
 class HomeViewModelProviderFactory(

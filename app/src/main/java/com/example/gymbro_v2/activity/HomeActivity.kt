@@ -75,13 +75,14 @@ class HomeActivity : AppCompatActivity() {
         )
 
         binding.homeRvMain.adapter = scheduleAdapter
-        homeViewModel.getAllSchedule().observe(this) {
-            scheduleAdapter.submitList(it)
+        homeViewModel.getAllSchedules().observe(this) {
             if (it.isEmpty()) {
                 binding.homeTvEmptyRv.visibility = View.VISIBLE
+                return@observe
             } else {
                 binding.homeTvEmptyRv.visibility = View.GONE
             }
+            scheduleAdapter.submitList(it)
         }
 
         binding.homeFabAddSchedule.setOnClickListener {

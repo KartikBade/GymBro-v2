@@ -7,7 +7,7 @@
     tools:context=".activity.ScheduleActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/home_rv_main"
+        android:id="@+id/schedule_rv_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:listitem="@layout/schedule_rv_list_item"
@@ -26,5 +26,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:contentDescription="@string/add_exercise" />
+
+    <TextView
+        android:id="@+id/schedule_tv_empty_rv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_exercises_found"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
