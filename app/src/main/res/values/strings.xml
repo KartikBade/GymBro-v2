@@ -48,5 +48,7 @@
     <string name="delete">Delete</string>
     <string name="sets">Sets</string>
     <string name="reps">Reps</string>
+    <string name="enter_exercise_name">Enter Exercise Name</string>
+    <string name="enter_exercise_instructions">Enter Exercise Instructions</string>
 
 </resources>

@@ -19,17 +19,17 @@ class ScheduleViewModel @Inject constructor(
 
     var exercisesOfSchedule: MutableLiveData<List<ScheduleWithExercises>> = MutableLiveData()
 
-    fun insertExercise(exercise: Exercise, scheduleName: String) {
+    fun getExercisesOfSchedule(scheduleName: String) {
         viewModelScope.launch {
-            userRepository.insertExercise(exercise)
-            userRepository.insertScheduleExerciseCrossRef(ScheduleExerciseCrossRef(scheduleName, exercise.exerciseName))
             exercisesOfSchedule.value = userRepository.getExercisesOfSchedule(scheduleName)
         }
     }
 
-    fun getExercisesOfSchedule(scheduleName: String) {
+    fun insertExercise(exercise: Exercise, scheduleName: String) {
         viewModelScope.launch {
-            exercisesOfSchedule.value = userRepository.getExercisesOfSchedule(scheduleName)
+            userRepository.insertExercise(exercise)
+            userRepository.insertScheduleExerciseCrossRef(ScheduleExerciseCrossRef(scheduleName, exercise.exerciseName))
+            getExercisesOfSchedule(scheduleName)
         }
     }
 }
