@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.ExerciseActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_exercise_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="30dp"
+            tools:text="Deadlift"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        
+        <EditText
+            android:id="@+id/et_weight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_exercise_title"
+            android:layout_marginTop="50dp"
+            android:hint="@string/_0"
+            android:inputType="number"/>
+
+        <ImageView
+            android:id="@+id/iv_dec_weight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_arrow_back_ios_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/et_weight"
+            app:layout_constraintTop_toTopOf="@id/et_weight"
+            app:layout_constraintBottom_toBottomOf="@id/et_weight"/>
+
+        <ImageView
+            android:id="@+id/iv_inc_weight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_arrow_forward_ios_24"
+            app:layout_constraintStart_toEndOf="@id/et_weight"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/et_weight"
+            app:layout_constraintBottom_toBottomOf="@id/et_weight"/>
+
+        <TextView
+            android:id="@+id/tv_weight_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_weight"
+            android:textColor="@color/design_default_color_primary"
+            android:text="@string/kgs"
+            android:gravity="center"/>
+
+        <EditText
+            android:id="@+id/et_reps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_weight_label"
+            android:layout_marginTop="50dp"
+            android:hint="@string/_0"
+            android:inputType="number" />
+
+        <ImageView
+            android:id="@+id/iv_dec_reps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_arrow_back_ios_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/et_reps"
+            app:layout_constraintTop_toTopOf="@id/et_reps"
+            app:layout_constraintBottom_toBottomOf="@id/et_reps"/>
+
+        <ImageView
+            android:id="@+id/iv_inc_reps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_arrow_forward_ios_24"
+            app:layout_constraintStart_toEndOf="@id/et_reps"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/et_reps"
+            app:layout_constraintBottom_toBottomOf="@id/et_reps"/>
+
+        <TextView
+            android:id="@+id/tv_reps_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_reps"
+            android:textColor="@color/design_default_color_primary"
+            android:text="@string/reps"
+            android:textAllCaps="true"
+            android:gravity="center"/>
+
+        <Button
+            android:id="@+id/btn_complete_set"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="@string/complete_set"
+            app:layout_constraintTop_toBottomOf="@id/tv_reps_label"
+            app:layout_constraintStart_toStartOf="@id/iv_dec_reps"
+            app:layout_constraintEnd_toEndOf="@id/iv_inc_reps"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

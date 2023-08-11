@@ -9,5 +9,4 @@ data class Schedule(
     val scheduleName: String,
     val scheduleDescription: String,
     val scheduleDaysPlannedOn: String,
-    val scheduleTotalExercises: Int = 0
 )

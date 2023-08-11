@@ -49,7 +49,6 @@ class ScheduleActivity : AppCompatActivity() {
         binding.scheduleRvMain.adapter = exerciseAdapter
         scheduleViewModel.getExercisesOfSchedule(scheduleName)
         scheduleViewModel.exercisesOfSchedule.observe(this) {
-            Log.e("ScheduleActivity", it.first().toString())
             if (it.isNullOrEmpty() || it.first().exercises.isEmpty()) {
                 binding.scheduleTvEmptyRv.visibility = View.VISIBLE
                 return@observe
@@ -73,12 +72,12 @@ class ScheduleActivity : AppCompatActivity() {
         materialScheduleAlertDialog.setView(customAlertDialogView)
             .setTitle("Add Exercise")
             .setPositiveButton("Add") { dialog, _ ->
-                val exerciseName = tvExerciseName.text.toString()
-                val exerciseInstructions = tvExerciseInstructions.text.toString()
+                val exerciseName = tvExerciseName.text.toString().trim()
+                val exerciseInstructions = tvExerciseInstructions.text.toString().trim()
 
-                if (exerciseName.isEmpty()) {
+                if (exerciseName.isBlank()) {
                     Toast.makeText(this, "Failed: Add Name", Toast.LENGTH_LONG).show()
-                } else if (exerciseInstructions.isEmpty()) {
+                } else if (exerciseInstructions.isBlank()) {
                     Toast.makeText(this, "Failed: Add Description", Toast.LENGTH_LONG).show()
                 } else {
                     scheduleViewModel.insertExercise(Exercise(exerciseName, exerciseInstructions), scheduleName = scheduleName)

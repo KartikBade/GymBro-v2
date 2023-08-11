@@ -12,6 +12,7 @@
         app:startIconDrawable="@drawable/baseline_playlist_add_24"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" >
 
         <com.google.android.material.textfield.TextInputEditText
@@ -31,6 +32,7 @@
         app:startIconDrawable="@drawable/baseline_description_24"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/til_exercise_name" >
 
         <com.google.android.material.textfield.TextInputEditText

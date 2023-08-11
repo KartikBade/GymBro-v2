@@ -50,5 +50,9 @@
     <string name="reps">Reps</string>
     <string name="enter_exercise_name">Enter Exercise Name</string>
     <string name="enter_exercise_instructions">Enter Exercise Instructions</string>
+    <string name="enter_total_sets">Enter Total Sets</string>
+    <string name="_0">0</string>
+    <string name="kgs">KGS</string>
+    <string name="complete_set">Complete Set</string>
 
 </resources>

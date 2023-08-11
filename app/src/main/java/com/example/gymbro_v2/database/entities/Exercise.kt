@@ -7,5 +7,5 @@ import androidx.room.PrimaryKey
 data class Exercise(
     @PrimaryKey(autoGenerate = false)
     val exerciseName: String,
-    val exerciseInstructions: String
+    val exerciseInstructions: String,
 )

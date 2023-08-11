@@ -31,16 +31,12 @@ class ScheduleAdapter(
             if (daysPlannedOn.contains("Fri")) { binding.friday.setTextColor(context.getColor(R.color.white)) }
             if (daysPlannedOn.contains("Sat")) { binding.saturday.setTextColor(context.getColor(R.color.white)) }
             if (daysPlannedOn.contains("Sun")) { binding.sunday.setTextColor(context.getColor(R.color.white)) }
-            binding.homeListItemTvTotalExercisesTitle.text = context.getString(R.string.total_exercises)
-            binding.homeListItemTvTotalExercises.text = schedule.scheduleTotalExercises.toString()
             val sdf = SimpleDateFormat("EEE")
             val d = Date()
             val dayOfTheWeek: String = sdf.format(d)
             if (daysPlannedOn.contains(dayOfTheWeek)) {
                 binding.homeListItemTvScheduleTitle.setBackgroundColor(context.getColor(R.color.purple_500))
                 binding.homeListItemTvScheduleDescription.setTextColor(context.getColor(R.color.black))
-                binding.homeListItemTvTotalExercisesTitle.setTextColor(context.getColor(R.color.black))
-                binding.homeListItemTvTotalExercises.setTextColor(context.getColor(R.color.black))
                 binding.homeListItemLinearParent.setBackgroundColor(context.getColor(R.color.purple_500))
             }
         }
@@ -66,7 +62,7 @@ class ScheduleAdapter(
         }
 
         override fun areContentsTheSame(oldItem: Schedule, newItem: Schedule): Boolean {
-            return oldItem.scheduleDescription == newItem.scheduleDescription && oldItem.scheduleDaysPlannedOn == newItem.scheduleDaysPlannedOn && oldItem.scheduleTotalExercises == newItem.scheduleTotalExercises
+            return oldItem.scheduleDescription == newItem.scheduleDescription && oldItem.scheduleDaysPlannedOn == newItem.scheduleDaysPlannedOn
         }
     }
 }
