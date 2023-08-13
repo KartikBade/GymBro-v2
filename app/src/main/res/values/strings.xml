@@ -54,5 +54,6 @@
     <string name="_0">0</string>
     <string name="kgs">KGS</string>
     <string name="complete_set">Complete Set</string>
+    <string name="logs">Logs</string>
 
 </resources>

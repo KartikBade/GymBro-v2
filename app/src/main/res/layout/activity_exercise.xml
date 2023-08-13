@@ -30,17 +30,19 @@
             android:id="@+id/et_weight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_exercise_title"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="40dp"
             android:hint="@string/_0"
-            android:inputType="number"/>
+            android:inputType="number" />
 
         <ImageView
             android:id="@+id/iv_dec_weight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="16dp"
             android:src="@drawable/baseline_arrow_back_ios_24"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/et_weight"
@@ -51,6 +53,7 @@
             android:id="@+id/iv_inc_weight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="16dp"
             android:src="@drawable/baseline_arrow_forward_ios_24"
             app:layout_constraintStart_toEndOf="@id/et_weight"
             app:layout_constraintEnd_toEndOf="parent"
@@ -72,6 +75,7 @@
             android:id="@+id/et_reps"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_weight_label"
@@ -83,6 +87,7 @@
             android:id="@+id/iv_dec_reps"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="16dp"
             android:src="@drawable/baseline_arrow_back_ios_24"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/et_reps"
@@ -93,6 +98,7 @@
             android:id="@+id/iv_inc_reps"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="16dp"
             android:src="@drawable/baseline_arrow_forward_ios_24"
             app:layout_constraintStart_toEndOf="@id/et_reps"
             app:layout_constraintEnd_toEndOf="parent"
@@ -120,6 +126,19 @@
             app:layout_constraintTop_toBottomOf="@id/tv_reps_label"
             app:layout_constraintStart_toStartOf="@id/iv_dec_reps"
             app:layout_constraintEnd_toEndOf="@id/iv_inc_reps"/>
+
+        <TextView
+            android:id="@+id/tv_logs_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_complete_set"
+            android:text="@string/logs"
+            android:textAllCaps="true"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

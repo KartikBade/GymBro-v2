@@ -11,14 +11,17 @@ import com.example.gymbro_v2.database.relations.ScheduleWithExercises
 @Dao
 interface ScheduleDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insertSchedule(schedule: Schedule)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insertExercise(exercise: Exercise)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insertScheduleExerciseCrossRef(crossRef: ScheduleExerciseCrossRef)
+
+//    @Insert(onConflict = OnConflictStrategy.ABORT)
+//    suspend fun insertLog(log: Log)
 
     @Query("SELECT * FROM schedule")
     fun getAllSchedules(): LiveData<List<Schedule>>
@@ -35,4 +38,8 @@ interface ScheduleDao {
     @Transaction
     @Query("SELECT * FROM schedule WHERE scheduleName = :scheduleName")
     suspend fun getExercisesOfSchedule(scheduleName: String): List<ScheduleWithExercises>
+
+//    @Transaction
+//    @Query("SELECT * FROM log WHERE exerciseName = :exerciseName")
+//    suspend fun getLogsOfExercise(exerciseName: String): List<ExerciseWithLogs>
 }

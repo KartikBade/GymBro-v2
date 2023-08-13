@@ -8,5 +8,5 @@ data class Schedule(
     @PrimaryKey(autoGenerate = false)
     val scheduleName: String,
     val scheduleDescription: String,
-    val scheduleDaysPlannedOn: String,
+    val scheduleDaysPlannedOn: String
 )

@@ -5,6 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.gymbro_v2.database.entities.Exercise
+import com.example.gymbro_v2.database.entities.Log
 import com.example.gymbro_v2.database.entities.Schedule
 import com.example.gymbro_v2.database.relations.ScheduleExerciseCrossRef
 
@@ -12,7 +13,8 @@ import com.example.gymbro_v2.database.relations.ScheduleExerciseCrossRef
     entities = [
         Schedule::class,
         Exercise::class,
-        ScheduleExerciseCrossRef::class
+        ScheduleExerciseCrossRef::class,
+//        Log::class
                ],
     version = 1
 )
