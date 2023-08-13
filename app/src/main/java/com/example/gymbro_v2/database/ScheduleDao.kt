@@ -3,7 +3,9 @@ package com.example.gymbro_v2.database
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.gymbro_v2.database.entities.Exercise
+import com.example.gymbro_v2.database.entities.Log
 import com.example.gymbro_v2.database.entities.Schedule
+import com.example.gymbro_v2.database.relations.ExerciseWithLogs
 import com.example.gymbro_v2.database.relations.ScheduleExerciseCrossRef
 import com.example.gymbro_v2.database.relations.ScheduleWithExercises
 
@@ -20,8 +22,8 @@ interface ScheduleDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insertScheduleExerciseCrossRef(crossRef: ScheduleExerciseCrossRef)
 
-//    @Insert(onConflict = OnConflictStrategy.ABORT)
-//    suspend fun insertLog(log: Log)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
+    suspend fun insertLog(log: Log)
 
     @Query("SELECT * FROM schedule")
     fun getAllSchedules(): LiveData<List<Schedule>>
@@ -45,7 +47,7 @@ interface ScheduleDao {
     @Query("SELECT exerciseId FROM exercise WHERE exerciseName = :exerciseName LIMIT 1")
     suspend fun findExerciseId(exerciseName: String): Int
 
-//    @Transaction
-//    @Query("SELECT * FROM log WHERE exerciseName = :exerciseName")
-//    suspend fun getLogsOfExercise(exerciseName: String): List<ExerciseWithLogs>
+    @Transaction
+    @Query("SELECT * FROM exercise WHERE exerciseName = :exerciseName")
+    suspend fun getLogsOfExercise(exerciseName: String): List<ExerciseWithLogs>
 }

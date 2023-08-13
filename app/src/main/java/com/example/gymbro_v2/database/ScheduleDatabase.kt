@@ -14,7 +14,7 @@ import com.example.gymbro_v2.database.relations.ScheduleExerciseCrossRef
         Schedule::class,
         Exercise::class,
         ScheduleExerciseCrossRef::class,
-//        Log::class
+        Log::class
                ],
     version = 1
 )
