@@ -5,7 +5,8 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Log(
-    @PrimaryKey(autoGenerate = false)
+    @PrimaryKey(autoGenerate = true)
+    val logId: Int,
     val time: String,
     val reps: Int,
     val weight: Int

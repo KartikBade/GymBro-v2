@@ -41,7 +41,7 @@ class AddScheduleActivity : AppCompatActivity() {
             if (binding.saturday.isChecked) { scheduleDaysPlannedOn += "Sat" }
             if (binding.sunday.isChecked) { scheduleDaysPlannedOn += "Sun" }
 
-            addScheduleViewModel.insertSchedule(Schedule(scheduleName, scheduleDescription, scheduleDaysPlannedOn))
+            addScheduleViewModel.insertSchedule(Schedule(0, scheduleName, scheduleDescription, scheduleDaysPlannedOn))
             finish()
         }
     }

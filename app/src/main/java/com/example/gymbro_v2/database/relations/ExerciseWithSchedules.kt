@@ -9,9 +9,9 @@ import com.example.gymbro_v2.database.entities.Schedule
 data class ExerciseWithSchedules(
     @Embedded val exercise: Exercise,
     @Relation(
-        parentColumn = "exerciseName",
-        entityColumn = "scheduleName",
+        parentColumn = "exerciseId",
+        entityColumn = "scheduleId",
         associateBy = Junction(ScheduleExerciseCrossRef::class)
     )
-    val schedule: List<Schedule>
+    val schedules: List<Schedule>
 )

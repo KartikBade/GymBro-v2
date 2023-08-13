@@ -36,8 +36,14 @@ interface ScheduleDao {
     suspend fun deleteAllSchedules()
 
     @Transaction
-    @Query("SELECT * FROM schedule WHERE scheduleName = :scheduleName")
+    @Query("SELECT * FROM schedule WHERE scheduleId = (SELECT scheduleId FROM schedule WHERE scheduleName = :scheduleName)")
     suspend fun getExercisesOfSchedule(scheduleName: String): List<ScheduleWithExercises>
+
+    @Query("SELECT scheduleId FROM schedule WHERE scheduleName = :scheduleName LIMIT 1")
+    suspend fun findScheduleId(scheduleName: String): Int
+
+    @Query("SELECT exerciseId FROM exercise WHERE exerciseName = :exerciseName LIMIT 1")
+    suspend fun findExerciseId(exerciseName: String): Int
 
 //    @Transaction
 //    @Query("SELECT * FROM log WHERE exerciseName = :exerciseName")

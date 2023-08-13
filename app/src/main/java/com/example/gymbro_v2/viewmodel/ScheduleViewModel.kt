@@ -28,7 +28,9 @@ class ScheduleViewModel @Inject constructor(
     fun insertExercise(exercise: Exercise, scheduleName: String) {
         viewModelScope.launch {
             userRepository.insertExercise(exercise)
-            userRepository.insertScheduleExerciseCrossRef(ScheduleExerciseCrossRef(scheduleName, exercise.exerciseName))
+            val scheduleId = userRepository.findScheduleId(scheduleName)
+            val exerciseId = userRepository.findExerciseId(exercise.exerciseName)
+            userRepository.insertScheduleExerciseCrossRef(ScheduleExerciseCrossRef(scheduleId, exerciseId))
             getExercisesOfSchedule(scheduleName)
         }
     }

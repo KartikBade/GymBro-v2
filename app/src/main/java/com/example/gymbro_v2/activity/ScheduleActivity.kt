@@ -1,6 +1,5 @@
 package com.example.gymbro_v2.activity
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -80,7 +79,7 @@ class ScheduleActivity : AppCompatActivity() {
                 } else if (exerciseInstructions.isBlank()) {
                     Toast.makeText(this, "Failed: Add Description", Toast.LENGTH_LONG).show()
                 } else {
-                    scheduleViewModel.insertExercise(Exercise(exerciseName, exerciseInstructions), scheduleName = scheduleName)
+                    scheduleViewModel.insertExercise(Exercise(0, exerciseName, exerciseInstructions), scheduleName = scheduleName)
                     dialog.dismiss()
                 }
             }

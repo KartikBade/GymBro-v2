@@ -45,4 +45,8 @@ class UserRepository(
     }
 
     suspend fun getExercisesOfSchedule(scheduleName: String) = scheduleDatabase.getDao().getExercisesOfSchedule(scheduleName)
+
+    suspend fun findScheduleId(scheduleName: String) = scheduleDatabase.getDao().findScheduleId(scheduleName)
+
+    suspend fun findExerciseId(exerciseName: String) = scheduleDatabase.getDao().findExerciseId(exerciseName)
 }
