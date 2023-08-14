@@ -78,7 +78,49 @@ class ExerciseActivity : AppCompatActivity() {
             }
             logAdapter.submitList(finalList)
         }
-        exerciseViewModel.getLogsOfExercise()
+
+        binding.ivDecReps.setOnClickListener {
+            try {
+                val reps = binding.etReps.text.toString().toInt() - 1
+                if (reps < 0) {
+                    binding.etReps.setText("0")
+                    return@setOnClickListener
+                }
+                binding.etReps.setText(reps.toString())
+            } catch (_: Exception) {}
+        }
+        binding.ivIncReps.setOnClickListener {
+            try {
+                if (binding.etReps.text.isBlank()) {
+                    binding.etReps.setText("1")
+                    return@setOnClickListener
+                }
+                val reps = binding.etReps.text.toString().toInt() + 1
+                if (reps < 0) { return@setOnClickListener }
+                binding.etReps.setText(reps.toString())
+            } catch (_: Exception) {}
+        }
+        binding.ivDecWeight.setOnClickListener {
+            try {
+                val weight = binding.etWeight.text.toString().toInt() - 5
+                if (weight < 0) {
+                    binding.etWeight.setText("0")
+                    return@setOnClickListener
+                }
+                binding.etWeight.setText(weight.toString())
+            } catch (_: Exception) {}
+        }
+        binding.ivIncWeight.setOnClickListener {
+            try {
+                if (binding.etWeight.text.isBlank()) {
+                    binding.etWeight.setText("5")
+                    return@setOnClickListener
+                }
+                val weight = binding.etWeight.text.toString().toInt() + 5
+                if (weight < 0) { return@setOnClickListener }
+                binding.etWeight.setText(weight.toString())
+            } catch (_: Exception) {}
+        }
     }
 
     private fun launchCustomAlertDialog(log: Log) {
