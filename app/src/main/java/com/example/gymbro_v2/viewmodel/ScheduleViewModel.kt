@@ -1,18 +1,17 @@
 package com.example.gymbro_v2.viewmodel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.gymbro_v2.database.entities.Exercise
-import com.example.gymbro_v2.database.relations.ExerciseWithSchedules
 import com.example.gymbro_v2.database.relations.ScheduleExerciseCrossRef
 import com.example.gymbro_v2.database.relations.ScheduleWithExercises
 import com.example.gymbro_v2.repository.UserRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class ScheduleViewModel @Inject constructor(
     private val userRepository: UserRepository
 ): ViewModel() {
@@ -33,13 +32,5 @@ class ScheduleViewModel @Inject constructor(
             userRepository.insertScheduleExerciseCrossRef(ScheduleExerciseCrossRef(scheduleId, exerciseId))
             getExercisesOfSchedule(scheduleName)
         }
-    }
-}
-
-class ScheduleViewModelProviderFactory(
-    private val userRepository: UserRepository
-): ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return ScheduleViewModel(userRepository) as T
     }
 }

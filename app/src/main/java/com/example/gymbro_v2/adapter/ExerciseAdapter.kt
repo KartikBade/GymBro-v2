@@ -8,10 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.gymbro_v2.database.entities.Exercise
 import com.example.gymbro_v2.databinding.ScheduleRvListItemBinding
 
-class ExerciseAdapter: ListAdapter<Exercise, ExerciseAdapter.ExerciseAdapterViewHolder>(DiffCallBack) {
+class ExerciseAdapter(
+    private val exerciseClickListener: (Exercise) -> Unit
+): ListAdapter<Exercise, ExerciseAdapter.ExerciseAdapterViewHolder>(DiffCallBack) {
 
     class ExerciseAdapterViewHolder(
-        private val binding: ScheduleRvListItemBinding
+        val binding: ScheduleRvListItemBinding
     ): RecyclerView.ViewHolder(binding.root) {
 
         fun bind(exercise: Exercise) {
@@ -26,15 +28,18 @@ class ExerciseAdapter: ListAdapter<Exercise, ExerciseAdapter.ExerciseAdapterView
 
     override fun onBindViewHolder(holder: ExerciseAdapterViewHolder, position: Int) {
         holder.bind(getItem(position))
+        holder.binding.parentConstraintLayout.setOnClickListener {
+            exerciseClickListener(getItem(position))
+        }
     }
 
     companion object DiffCallBack: DiffUtil.ItemCallback<Exercise>() {
         override fun areItemsTheSame(oldItem: Exercise, newItem: Exercise): Boolean {
-            return oldItem.exerciseName == newItem.exerciseName
+            return oldItem.exerciseId == newItem.exerciseId
         }
 
         override fun areContentsTheSame(oldItem: Exercise, newItem: Exercise): Boolean {
-            return oldItem.exerciseName == newItem.exerciseName && oldItem.exerciseInstructions == newItem.exerciseInstructions
+            return oldItem == newItem
         }
 
     }

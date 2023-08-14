@@ -1,5 +1,6 @@
 package com.example.gymbro_v2.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -7,28 +8,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
+import androidx.activity.viewModels
 import com.example.gymbro_v2.R
 import com.example.gymbro_v2.adapter.ExerciseAdapter
 import com.example.gymbro_v2.database.entities.Exercise
 import com.example.gymbro_v2.databinding.ActivityScheduleBinding
-import com.example.gymbro_v2.repository.UserRepository
 import com.example.gymbro_v2.viewmodel.ScheduleViewModel
-import com.example.gymbro_v2.viewmodel.ScheduleViewModelProviderFactory
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class ScheduleActivity : AppCompatActivity() {
 
-    @Inject
-    lateinit var userRepository: UserRepository
     lateinit var binding: ActivityScheduleBinding
-    private lateinit var scheduleViewModel: ScheduleViewModel
     private lateinit var materialScheduleAlertDialog: MaterialAlertDialogBuilder
     private lateinit var customAlertDialogView: View
     private lateinit var scheduleName: String
+    private val scheduleViewModel: ScheduleViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,10 +36,11 @@ class ScheduleActivity : AppCompatActivity() {
         scheduleName = intent.getStringExtra("scheduleName").toString()
         title = scheduleName
 
-        val scheduleViewModelProviderFactory = ScheduleViewModelProviderFactory(userRepository)
-        scheduleViewModel = ViewModelProvider(this, scheduleViewModelProviderFactory)[ScheduleViewModel::class.java]
-
-        val exerciseAdapter = ExerciseAdapter()
+        val exerciseAdapter = ExerciseAdapter {
+            val intent = Intent(this, ExerciseActivity::class.java)
+            intent.putExtra("exerciseName", it.exerciseName)
+            startActivity(intent)
+        }
 
         binding.scheduleRvMain.adapter = exerciseAdapter
         scheduleViewModel.getExercisesOfSchedule(scheduleName)
@@ -52,9 +49,7 @@ class ScheduleActivity : AppCompatActivity() {
                 binding.scheduleTvEmptyRv.visibility = View.VISIBLE
                 return@observe
             }
-            else {
-                binding.scheduleTvEmptyRv.visibility = View.GONE
-            }
+            binding.scheduleTvEmptyRv.visibility = View.GONE
             exerciseAdapter.submitList(it.first().exercises)
         }
 

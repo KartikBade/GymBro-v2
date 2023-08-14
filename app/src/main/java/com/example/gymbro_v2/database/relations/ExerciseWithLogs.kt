@@ -8,8 +8,8 @@ import com.example.gymbro_v2.database.entities.Log
 data class ExerciseWithLogs(
     @Embedded val exercise: Exercise,
     @Relation(
-        parentColumn = "exerciseName",
-        entityColumn = "time"
+        parentColumn = "exerciseId",
+        entityColumn = "exerciseId"
     )
     val logs: List<Log>
 )

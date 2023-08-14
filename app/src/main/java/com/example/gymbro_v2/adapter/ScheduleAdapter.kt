@@ -58,11 +58,11 @@ class ScheduleAdapter(
 
     companion object DiffCallBack: DiffUtil.ItemCallback<Schedule>() {
         override fun areItemsTheSame(oldItem: Schedule, newItem: Schedule): Boolean {
-            return oldItem == newItem
+            return oldItem.scheduleId == newItem.scheduleId
         }
 
         override fun areContentsTheSame(oldItem: Schedule, newItem: Schedule): Boolean {
-            return oldItem.scheduleDescription == newItem.scheduleDescription && oldItem.scheduleDaysPlannedOn == newItem.scheduleDaysPlannedOn
+            return oldItem == newItem
         }
     }
 }

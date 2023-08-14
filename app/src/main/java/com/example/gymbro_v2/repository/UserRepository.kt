@@ -4,6 +4,7 @@ import android.content.Context
 import com.example.gymbro_v2.R
 import com.example.gymbro_v2.database.ScheduleDatabase
 import com.example.gymbro_v2.database.entities.Exercise
+import com.example.gymbro_v2.database.entities.Log
 import com.example.gymbro_v2.database.entities.Schedule
 import com.example.gymbro_v2.database.relations.ScheduleExerciseCrossRef
 import com.google.firebase.auth.FirebaseAuth
@@ -49,4 +50,10 @@ class UserRepository(
     suspend fun findScheduleId(scheduleName: String) = scheduleDatabase.getDao().findScheduleId(scheduleName)
 
     suspend fun findExerciseId(exerciseName: String) = scheduleDatabase.getDao().findExerciseId(exerciseName)
+
+    suspend fun insertLog(log: Log) {
+        scheduleDatabase.getDao().insertLog(log)
+    }
+
+    suspend fun getLogsOfExercise(exerciseName: String) = scheduleDatabase.getDao().getLogsOfExercise(exerciseName)
 }

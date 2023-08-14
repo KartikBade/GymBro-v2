@@ -7,7 +7,9 @@ import androidx.room.PrimaryKey
 data class Log(
     @PrimaryKey(autoGenerate = true)
     val logId: Int,
+    val exerciseId: Int,
     val time: String,
+    val date: String,
     val reps: Int,
     val weight: Int
 )

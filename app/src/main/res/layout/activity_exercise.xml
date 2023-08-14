@@ -10,6 +10,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/exercise_bottom_nav_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/tv_exercise_title"
             android:layout_width="match_parent"
@@ -24,7 +32,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/exercise_bottom_nav_view" />
         
         <EditText
             android:id="@+id/et_weight"
@@ -128,17 +136,67 @@
             app:layout_constraintEnd_toEndOf="@id/iv_inc_reps"/>
 
         <TextView
-            android:id="@+id/tv_logs_label"
+            android:id="@+id/tv_todays_logs_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
+            android:text="@string/today_s_logs"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_complete_set"
-            android:text="@string/logs"
-            android:textAllCaps="true"/>
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"/>
+
+        <LinearLayout
+            android:id="@+id/linear_layout_log_item_labels"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/tv_todays_logs_label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_margin="16dp"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/log_tv_set_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/set"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/log_tv_reps_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="@string/reps"/>
+
+            <TextView
+                android:id="@+id/log_tv_weight_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="@string/weight"/>
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_todays_logs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/linear_layout_log_item_labels"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            tools:listitem="@layout/log_list_item"
+            tools:itemCount="5"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

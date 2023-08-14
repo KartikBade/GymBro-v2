@@ -55,5 +55,8 @@
     <string name="kgs">KGS</string>
     <string name="complete_set">Complete Set</string>
     <string name="logs">Logs</string>
+    <string name="today_s_logs">Today\'s Logs</string>
+    <string name="set">Set</string>
+    <string name="weight">Weight (kgs)</string>
 
 </resources>
