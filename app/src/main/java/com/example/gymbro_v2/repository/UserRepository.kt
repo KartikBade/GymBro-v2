@@ -20,38 +20,33 @@ class UserRepository(
     suspend fun logout() {
         firebaseAuth.signOut()
         userSharedPref.edit().remove(context.getString(R.string.user_shared_pref_username)).apply()
+        scheduleDatabase.getDao().deleteAllExercises()
+        scheduleDatabase.getDao().deleteAllLogs()
         scheduleDatabase.getDao().deleteAllSchedules()
+        scheduleDatabase.getDao().deleteScheduleExerciseCrossRefs()
     }
 
-    suspend fun insertSchedule(schedule: Schedule) {
-        scheduleDatabase.getDao().insertSchedule(schedule)
-    }
+    suspend fun insertSchedule(schedule: Schedule) = scheduleDatabase.getDao().insertSchedule(schedule)
 
     fun getAllSchedules() = scheduleDatabase.getDao().getAllSchedules()
 
-    suspend fun deleteSchedule(scheduleId: Int) {
-        scheduleDatabase.getDao().deleteSchedule(scheduleId)
-    }
+    suspend fun deleteSchedule(scheduleId: Int) = scheduleDatabase.getDao().deleteSchedule(scheduleId)
 
-    suspend fun editSchedule(scheduleId: Int, scheduleName: String, scheduleDescription: String, scheduleDaysPlannedOn: String) {
-        scheduleDatabase.getDao().editSchedule(scheduleId, scheduleName, scheduleDescription, scheduleDaysPlannedOn)
-    }
+    suspend fun editSchedule(scheduleId: Int, scheduleName: String, scheduleDescription: String, scheduleDaysPlannedOn: String) = scheduleDatabase.getDao().editSchedule(scheduleId, scheduleName, scheduleDescription, scheduleDaysPlannedOn)
 
-    suspend fun insertExercise(exercise: Exercise) {
-        scheduleDatabase.getDao().insertExercise(exercise)
-    }
+    suspend fun insertExercise(exercise: Exercise) = scheduleDatabase.getDao().insertExercise(exercise)
 
-    suspend fun insertScheduleExerciseCrossRef(crossRef: ScheduleExerciseCrossRef) {
-        scheduleDatabase.getDao().insertScheduleExerciseCrossRef(crossRef)
-    }
+    suspend fun insertScheduleExerciseCrossRef(crossRef: ScheduleExerciseCrossRef) = scheduleDatabase.getDao().insertScheduleExerciseCrossRef(crossRef)
 
     suspend fun getExercisesOfSchedule(scheduleId: Int) = scheduleDatabase.getDao().getExercisesOfSchedule(scheduleId)
 
-    suspend fun insertLog(log: Log) {
-        scheduleDatabase.getDao().insertLog(log)
-    }
+    suspend fun insertLog(log: Log) = scheduleDatabase.getDao().insertLog(log)
 
     suspend fun getLogsOfExercise(exerciseId: Int) = scheduleDatabase.getDao().getLogsOfExercise(exerciseId)
 
     suspend fun findExerciseId(exerciseName: String) = scheduleDatabase.getDao().findExerciseId(exerciseName)
+
+    suspend fun editLog(weight: Int, reps: Int, logId: Int) = scheduleDatabase.getDao().editLog(weight, reps, logId)
+
+    suspend fun deleteLog(logId: Int) = scheduleDatabase.getDao().deleteLog(logId)
 }

@@ -13,25 +13,29 @@ class LogAdapter(
 ): ListAdapter<Log, LogAdapter.LogViewHolder>(DiffCallBack) {
 
     class LogViewHolder(
-        val binding: LogListItemBinding
+        private val binding: LogListItemBinding,
+        private val logClickListener: (Log) -> Unit
     ): RecyclerView.ViewHolder(binding.root) {
 
         fun bind(log: Log, setCount: Int) {
             binding.tvSet.text = setCount.toString()
             binding.tvReps.text = log.reps.toString()
             binding.tvWeight.text = log.weight.toString()
+            binding.logLinearLayout.setOnClickListener {
+                logClickListener(log)
+            }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LogViewHolder {
-        return LogViewHolder(LogListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return LogViewHolder(LogListItemBinding.inflate(
+            LayoutInflater.from(parent.context), parent, false),
+            logClickListener
+        )
     }
 
     override fun onBindViewHolder(holder: LogViewHolder, position: Int) {
         holder.bind(getItem(position), position+1)
-        holder.binding.logLinearLayout.setOnClickListener {
-            logClickListener(getItem(position))
-        }
     }
 
     companion object DiffCallBack: DiffUtil.ItemCallback<Log>() {

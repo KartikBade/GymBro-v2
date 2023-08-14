@@ -13,24 +13,28 @@ class ExerciseAdapter(
 ): ListAdapter<Exercise, ExerciseAdapter.ExerciseAdapterViewHolder>(DiffCallBack) {
 
     class ExerciseAdapterViewHolder(
-        val binding: ScheduleRvListItemBinding
+        private val binding: ScheduleRvListItemBinding,
+        private val exerciseClickListener: (Exercise) -> Unit
     ): RecyclerView.ViewHolder(binding.root) {
 
         fun bind(exercise: Exercise) {
             binding.scheduleRvListItemExerciseTitle.text = exercise.exerciseName
             binding.scheduleRvListItemExerciseInstructions.text = exercise.exerciseInstructions
+            binding.parentConstraintLayout.setOnClickListener {
+                exerciseClickListener(exercise)
+            }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExerciseAdapterViewHolder {
-        return ExerciseAdapterViewHolder(ScheduleRvListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return ExerciseAdapterViewHolder(ScheduleRvListItemBinding.inflate(
+            LayoutInflater.from(parent.context), parent, false),
+            exerciseClickListener
+        )
     }
 
     override fun onBindViewHolder(holder: ExerciseAdapterViewHolder, position: Int) {
         holder.bind(getItem(position))
-        holder.binding.parentConstraintLayout.setOnClickListener {
-            exerciseClickListener(getItem(position))
-        }
     }
 
     companion object DiffCallBack: DiffUtil.ItemCallback<Exercise>() {

@@ -57,14 +57,12 @@ class HomeActivity : AppCompatActivity() {
                 intent.putExtra("oldScheduleDescription", it.scheduleDescription)
                 intent.putExtra("oldScheduleDaysPlannedOn", it.scheduleDaysPlannedOn)
                 startActivity(intent)
-                finish()
             },
             scheduleClickListener = {
                 val intent = Intent(this, ScheduleActivity::class.java)
                 intent.putExtra("scheduleName", it.scheduleName)
                 intent.putExtra("scheduleId", it.scheduleId)
                 startActivity(intent)
-                finish()
             }
         )
 

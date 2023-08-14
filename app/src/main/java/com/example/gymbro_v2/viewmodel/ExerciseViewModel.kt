@@ -31,4 +31,18 @@ class ExerciseViewModel @Inject constructor(
             todaysLogs.value = userRepository.getLogsOfExercise(exerciseId)
         }
     }
+
+    fun editLog(weight: Int, reps: Int, logInt: Int) {
+        viewModelScope.launch {
+            userRepository.editLog(weight, reps, logInt)
+            todaysLogs.value = userRepository.getLogsOfExercise(exerciseId)
+        }
+    }
+
+    fun deleteLog(logId: Int) {
+        viewModelScope.launch {
+            userRepository.deleteLog(logId)
+            todaysLogs.value = userRepository.getLogsOfExercise(exerciseId)
+        }
+    }
 }

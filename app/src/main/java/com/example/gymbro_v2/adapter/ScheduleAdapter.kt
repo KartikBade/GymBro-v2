@@ -18,8 +18,11 @@ class ScheduleAdapter(
     private val scheduleClickListener: (Schedule) -> Unit): ListAdapter<Schedule, ScheduleAdapter.ScheduleAdapterViewHolder>(DiffCallBack) {
 
     class ScheduleAdapterViewHolder(
-        val binding: HomeRvMainListItemBinding
+        private val binding: HomeRvMainListItemBinding,
+        private val editScheduleClickListener: (Schedule) -> Unit,
+        private val scheduleClickListener: (Schedule) -> Unit
     ): RecyclerView.ViewHolder(binding.root) {
+
         fun bind(context: Context, schedule: Schedule) {
             binding.homeListItemTvScheduleTitle.text = schedule.scheduleName
             binding.homeListItemTvScheduleDescription.text = schedule.scheduleDescription
@@ -39,21 +42,25 @@ class ScheduleAdapter(
                 binding.homeListItemTvScheduleDescription.setTextColor(context.getColor(R.color.black))
                 binding.homeListItemLinearParent.setBackgroundColor(context.getColor(R.color.purple_500))
             }
+            binding.ivEditSchedule.setOnClickListener {
+                editScheduleClickListener(schedule)
+            }
+            binding.homeListItemConstraintParent.setOnClickListener {
+                scheduleClickListener(schedule)
+            }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScheduleAdapterViewHolder {
-        return ScheduleAdapterViewHolder(HomeRvMainListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return ScheduleAdapterViewHolder(HomeRvMainListItemBinding.inflate(
+            LayoutInflater.from(parent.context), parent, false),
+            editScheduleClickListener,
+            scheduleClickListener
+        )
     }
 
     override fun onBindViewHolder(holder: ScheduleAdapterViewHolder, position: Int) {
         holder.bind(context, getItem(position))
-        holder.binding.ivEditSchedule.setOnClickListener {
-            editScheduleClickListener(getItem(position))
-        }
-        holder.binding.homeListItemConstraintParent.setOnClickListener {
-            scheduleClickListener(getItem(position))
-        }
     }
 
     companion object DiffCallBack: DiffUtil.ItemCallback<Schedule>() {

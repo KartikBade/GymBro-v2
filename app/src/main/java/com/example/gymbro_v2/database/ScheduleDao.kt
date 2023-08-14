@@ -34,8 +34,17 @@ interface ScheduleDao {
     @Query("UPDATE schedule SET scheduleName = :scheduleName, scheduleDescription  = :scheduleDescription, scheduleDaysPlannedOn = :scheduleDaysPlannedOn WHERE scheduleId = :scheduleId")
     suspend fun editSchedule(scheduleId: Int, scheduleName: String, scheduleDescription: String, scheduleDaysPlannedOn: String)
 
+    @Query("DELETE FROM exercise")
+    suspend fun deleteAllExercises()
+
+    @Query("DELETE FROM log")
+    suspend fun deleteAllLogs()
+
     @Query("DELETE FROM schedule")
     suspend fun deleteAllSchedules()
+
+    @Query("DELETE FROM scheduleExerciseCrossRef")
+    suspend fun deleteScheduleExerciseCrossRefs()
 
     @Transaction
     @Query("SELECT * FROM schedule WHERE scheduleId = :scheduleId")

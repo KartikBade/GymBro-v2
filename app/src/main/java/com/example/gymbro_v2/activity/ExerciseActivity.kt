@@ -24,7 +24,6 @@ class ExerciseActivity : AppCompatActivity() {
     lateinit var binding: ActivityExerciseBinding
     private val exerciseViewModel: ExerciseViewModel by viewModels()
     private lateinit var materialScheduleAlertDialog: MaterialAlertDialogBuilder
-    private lateinit var customAlertDialogView: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,8 +66,7 @@ class ExerciseActivity : AppCompatActivity() {
         }
 
         val logAdapter = LogAdapter {
-            customAlertDialogView = LayoutInflater.from(this).inflate(R.layout.alert_dialog_edit_log, binding.root, false)
-            launchCustomAlertDialog()
+            launchCustomAlertDialog(it)
         }
         binding.rvTodaysLogs.adapter = logAdapter
         exerciseViewModel.todaysLogs.observe(this) {
@@ -83,9 +81,12 @@ class ExerciseActivity : AppCompatActivity() {
         exerciseViewModel.getLogsOfExercise()
     }
 
-    private fun launchCustomAlertDialog() {
+    private fun launchCustomAlertDialog(log: Log) {
+        val customAlertDialogView = LayoutInflater.from(this).inflate(R.layout.alert_dialog_edit_log, binding.root, false)
         val etEditWeight: TextView = customAlertDialogView.findViewById(R.id.et_edit_weight)
         val etEditReps: TextView = customAlertDialogView.findViewById(R.id.et_edit_reps)
+        etEditWeight.text = log.weight.toString()
+        etEditReps.text = log.reps.toString()
 
         materialScheduleAlertDialog.setView(customAlertDialogView)
             .setTitle("Edit Log")
@@ -96,18 +97,18 @@ class ExerciseActivity : AppCompatActivity() {
                 try {
                     val weight = weightString.toInt()
                     val reps = repsString.toInt()
-
                     if (weight < 0 || reps < 0) {
                         Toast.makeText(this, "Please enter positive values", Toast.LENGTH_SHORT).show()
                     }
-
-
+                    exerciseViewModel.editLog(weight, reps, log.logId)
+                    dialog.dismiss()
                 } catch (e: ClassCastException) {
                     Toast.makeText(this, "Please enter numbers.", Toast.LENGTH_SHORT).show()
                     dialog.dismiss()
                 }
             }
             .setNeutralButton("Delete") { dialog, _ ->
+                exerciseViewModel.deleteLog(log.logId)
                 dialog.dismiss()
             }
             .setNegativeButton("Cancel") { dialog, _ ->
