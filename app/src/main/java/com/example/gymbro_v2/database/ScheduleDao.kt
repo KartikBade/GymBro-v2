@@ -28,26 +28,29 @@ interface ScheduleDao {
     @Query("SELECT * FROM schedule")
     fun getAllSchedules(): LiveData<List<Schedule>>
 
-    @Query("DELETE FROM schedule WHERE scheduleName = :scheduleName")
-    suspend fun deleteSchedule(scheduleName: String)
+    @Query("DELETE FROM schedule WHERE scheduleId = :scheduleId")
+    suspend fun deleteSchedule(scheduleId: Int)
 
-    @Query("UPDATE schedule SET scheduleName = :newName, scheduleDescription  = :description, scheduleDaysPlannedOn = :daysPlannedOn WHERE scheduleName = :oldName")
-    suspend fun editSchedule(oldName: String, newName: String, description: String, daysPlannedOn: String)
+    @Query("UPDATE schedule SET scheduleName = :scheduleName, scheduleDescription  = :scheduleDescription, scheduleDaysPlannedOn = :scheduleDaysPlannedOn WHERE scheduleId = :scheduleId")
+    suspend fun editSchedule(scheduleId: Int, scheduleName: String, scheduleDescription: String, scheduleDaysPlannedOn: String)
 
     @Query("DELETE FROM schedule")
     suspend fun deleteAllSchedules()
 
     @Transaction
-    @Query("SELECT * FROM schedule WHERE scheduleName = :scheduleName")
-    suspend fun getExercisesOfSchedule(scheduleName: String): List<ScheduleWithExercises>
+    @Query("SELECT * FROM schedule WHERE scheduleId = :scheduleId")
+    suspend fun getExercisesOfSchedule(scheduleId: Int): List<ScheduleWithExercises>
 
-    @Query("SELECT scheduleId FROM schedule WHERE scheduleName = :scheduleName LIMIT 1")
-    suspend fun findScheduleId(scheduleName: String): Int
+    @Transaction
+    @Query("SELECT * FROM exercise WHERE exerciseId = :exerciseId")
+    suspend fun getLogsOfExercise(exerciseId: Int): List<ExerciseWithLogs>
+
+    @Query("UPDATE log SET weight = :weight, reps = :reps WHERE logId = :logId")
+    suspend fun editLog(weight: Int, reps: Int, logId: Int)
+
+    @Query("DELETE FROM log WHERE logId = :logId")
+    suspend fun deleteLog(logId: Int)
 
     @Query("SELECT exerciseId FROM exercise WHERE exerciseName = :exerciseName LIMIT 1")
     suspend fun findExerciseId(exerciseName: String): Int
-
-    @Transaction
-    @Query("SELECT * FROM exercise WHERE exerciseName = :exerciseName")
-    suspend fun getLogsOfExercise(exerciseName: String): List<ExerciseWithLogs>
 }

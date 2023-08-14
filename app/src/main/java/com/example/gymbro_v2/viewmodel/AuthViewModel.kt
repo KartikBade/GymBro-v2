@@ -1,16 +1,14 @@
 package com.example.gymbro_v2.viewmodel
 
-import android.content.Intent
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.gymbro_v2.R
-import com.example.gymbro_v2.activity.HomeActivity
 import com.example.gymbro_v2.model.User
 import com.example.gymbro_v2.repository.AuthRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class AuthViewModel @Inject constructor(
     private val authRepository: AuthRepository
 ): ViewModel() {
@@ -25,13 +23,5 @@ class AuthViewModel @Inject constructor(
         viewModelScope.launch {
             authRepository.loginUser(email, password)
         }
-    }
-}
-
-class AuthViewModelProviderFactory(
-    private val authRepository: AuthRepository
-): ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return AuthViewModel(authRepository) as T
     }
 }

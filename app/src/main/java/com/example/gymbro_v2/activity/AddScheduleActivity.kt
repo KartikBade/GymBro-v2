@@ -2,31 +2,22 @@ package com.example.gymbro_v2.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProvider
+import androidx.activity.viewModels
 import com.example.gymbro_v2.database.entities.Schedule
-
 import com.example.gymbro_v2.databinding.ActivityAddScheduleBinding
-import com.example.gymbro_v2.repository.UserRepository
 import com.example.gymbro_v2.viewmodel.AddScheduleViewModel
-import com.example.gymbro_v2.viewmodel.AddScheduleViewModelProviderFactory
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class AddScheduleActivity : AppCompatActivity() {
 
-    @Inject
-    lateinit var userRepository: UserRepository
     private lateinit var binding: ActivityAddScheduleBinding
-    private lateinit var addScheduleViewModel: AddScheduleViewModel
+    private val addScheduleViewModel: AddScheduleViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddScheduleBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val addScheduleViewModelProviderFactory = AddScheduleViewModelProviderFactory(userRepository)
-        addScheduleViewModel = ViewModelProvider(this, addScheduleViewModelProviderFactory)[AddScheduleViewModel::class.java]
 
         binding.addScheduleButton.setOnClickListener {
 

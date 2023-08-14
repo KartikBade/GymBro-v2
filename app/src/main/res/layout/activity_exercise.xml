@@ -167,20 +167,20 @@
                 android:gravity="center"/>
 
             <TextView
-                android:id="@+id/log_tv_reps_label"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:gravity="center"
-                android:text="@string/reps"/>
-
-            <TextView
                 android:id="@+id/log_tv_weight_label"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:gravity="center"
                 android:text="@string/weight"/>
+
+            <TextView
+                android:id="@+id/log_tv_reps_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="@string/reps"/>
 
         </LinearLayout>
 

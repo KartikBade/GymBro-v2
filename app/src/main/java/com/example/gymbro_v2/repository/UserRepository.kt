@@ -29,12 +29,12 @@ class UserRepository(
 
     fun getAllSchedules() = scheduleDatabase.getDao().getAllSchedules()
 
-    suspend fun deleteSchedule(scheduleName: String) {
-        scheduleDatabase.getDao().deleteSchedule(scheduleName)
+    suspend fun deleteSchedule(scheduleId: Int) {
+        scheduleDatabase.getDao().deleteSchedule(scheduleId)
     }
 
-    suspend fun editSchedule(oldName: String, newName: String, description: String, daysPlannedOn: String) {
-        scheduleDatabase.getDao().editSchedule(oldName, newName, description, daysPlannedOn)
+    suspend fun editSchedule(scheduleId: Int, scheduleName: String, scheduleDescription: String, scheduleDaysPlannedOn: String) {
+        scheduleDatabase.getDao().editSchedule(scheduleId, scheduleName, scheduleDescription, scheduleDaysPlannedOn)
     }
 
     suspend fun insertExercise(exercise: Exercise) {
@@ -45,15 +45,13 @@ class UserRepository(
         scheduleDatabase.getDao().insertScheduleExerciseCrossRef(crossRef)
     }
 
-    suspend fun getExercisesOfSchedule(scheduleName: String) = scheduleDatabase.getDao().getExercisesOfSchedule(scheduleName)
-
-    suspend fun findScheduleId(scheduleName: String) = scheduleDatabase.getDao().findScheduleId(scheduleName)
-
-    suspend fun findExerciseId(exerciseName: String) = scheduleDatabase.getDao().findExerciseId(exerciseName)
+    suspend fun getExercisesOfSchedule(scheduleId: Int) = scheduleDatabase.getDao().getExercisesOfSchedule(scheduleId)
 
     suspend fun insertLog(log: Log) {
         scheduleDatabase.getDao().insertLog(log)
     }
 
-    suspend fun getLogsOfExercise(exerciseName: String) = scheduleDatabase.getDao().getLogsOfExercise(exerciseName)
+    suspend fun getLogsOfExercise(exerciseId: Int) = scheduleDatabase.getDao().getLogsOfExercise(exerciseId)
+
+    suspend fun findExerciseId(exerciseName: String) = scheduleDatabase.getDao().findExerciseId(exerciseName)
 }

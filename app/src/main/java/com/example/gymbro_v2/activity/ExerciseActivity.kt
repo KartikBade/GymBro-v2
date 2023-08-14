@@ -2,12 +2,18 @@ package com.example.gymbro_v2.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
+import com.example.gymbro_v2.R
 import com.example.gymbro_v2.adapter.LogAdapter
+import com.example.gymbro_v2.database.entities.Exercise
 import com.example.gymbro_v2.database.entities.Log
 import com.example.gymbro_v2.databinding.ActivityExerciseBinding
 import com.example.gymbro_v2.viewmodel.ExerciseViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.*
@@ -16,17 +22,22 @@ import java.util.*
 class ExerciseActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityExerciseBinding
-    lateinit var exerciseName: String
     private val exerciseViewModel: ExerciseViewModel by viewModels()
+    private lateinit var materialScheduleAlertDialog: MaterialAlertDialogBuilder
+    private lateinit var customAlertDialogView: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityExerciseBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        exerciseName = intent.getStringExtra("exerciseName").toString()
+        materialScheduleAlertDialog = MaterialAlertDialogBuilder(binding.root.context)
+
+        val exerciseId = intent.getIntExtra("exerciseId", -1)
+        val exerciseName = intent.getStringExtra("exerciseName").toString()
         binding.tvExerciseTitle.text = exerciseName
         exerciseViewModel.exerciseName = exerciseName
+        exerciseViewModel.exerciseId = exerciseId
 
         val sdfDate = SimpleDateFormat("dd-MM-yyyy")
         val sdfTime = SimpleDateFormat("HH:mm:ss")
@@ -42,6 +53,11 @@ class ExerciseActivity : AppCompatActivity() {
                 val weight = weightString.toInt()
                 val reps = repsString.toInt()
 
+                if (weight < 0 || reps < 0) {
+                    Toast.makeText(this, "Please enter positive values", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+
                 exerciseViewModel.insertLog(time, date, reps, weight)
             } catch (e: ClassCastException) {
                 Toast.makeText(this, "Invalid values entered", Toast.LENGTH_SHORT).show()
@@ -50,7 +66,10 @@ class ExerciseActivity : AppCompatActivity() {
             }
         }
 
-        val logAdapter = LogAdapter()
+        val logAdapter = LogAdapter {
+            customAlertDialogView = LayoutInflater.from(this).inflate(R.layout.alert_dialog_edit_log, binding.root, false)
+            launchCustomAlertDialog()
+        }
         binding.rvTodaysLogs.adapter = logAdapter
         exerciseViewModel.todaysLogs.observe(this) {
             val finalList = mutableListOf<Log>()
@@ -62,5 +81,38 @@ class ExerciseActivity : AppCompatActivity() {
             logAdapter.submitList(finalList)
         }
         exerciseViewModel.getLogsOfExercise()
+    }
+
+    private fun launchCustomAlertDialog() {
+        val etEditWeight: TextView = customAlertDialogView.findViewById(R.id.et_edit_weight)
+        val etEditReps: TextView = customAlertDialogView.findViewById(R.id.et_edit_reps)
+
+        materialScheduleAlertDialog.setView(customAlertDialogView)
+            .setTitle("Edit Log")
+            .setPositiveButton("Edit") { dialog, _ ->
+                val weightString = etEditWeight.text.toString().trim()
+                val repsString = etEditReps.text.toString().trim()
+
+                try {
+                    val weight = weightString.toInt()
+                    val reps = repsString.toInt()
+
+                    if (weight < 0 || reps < 0) {
+                        Toast.makeText(this, "Please enter positive values", Toast.LENGTH_SHORT).show()
+                    }
+
+
+                } catch (e: ClassCastException) {
+                    Toast.makeText(this, "Please enter numbers.", Toast.LENGTH_SHORT).show()
+                    dialog.dismiss()
+                }
+            }
+            .setNeutralButton("Delete") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 }

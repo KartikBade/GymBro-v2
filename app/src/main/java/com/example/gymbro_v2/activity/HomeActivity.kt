@@ -5,33 +5,25 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.lifecycle.ViewModelProvider
 import com.example.gymbro_v2.R
 import com.example.gymbro_v2.adapter.ScheduleAdapter
 import com.example.gymbro_v2.databinding.ActivityHomeBinding
-import com.example.gymbro_v2.repository.UserRepository
 import com.example.gymbro_v2.viewmodel.HomeViewModel
-import com.example.gymbro_v2.viewmodel.HomeViewModelProviderFactory
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
 
-    @Inject
-    lateinit var userRepository: UserRepository
-    lateinit var homeViewModel: HomeViewModel
     private lateinit var binding: ActivityHomeBinding
     private lateinit var toggle: ActionBarDrawerToggle
+    private val homeViewModel: HomeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val userViewModelProviderFactory = HomeViewModelProviderFactory(userRepository)
-        homeViewModel = ViewModelProvider(this, userViewModelProviderFactory)[HomeViewModel::class.java]
 
         toggle = ActionBarDrawerToggle(this, binding.homeDrawerLayout, R.string.open, R.string.close)
         binding.homeDrawerLayout.addDrawerListener(toggle)
@@ -60,6 +52,7 @@ class HomeActivity : AppCompatActivity() {
             this,
             editScheduleClickListener = {
                 val intent = Intent(this, EditScheduleActivity::class.java)
+                intent.putExtra("scheduleId", it.scheduleId)
                 intent.putExtra("oldScheduleName", it.scheduleName)
                 intent.putExtra("oldScheduleDescription", it.scheduleDescription)
                 intent.putExtra("oldScheduleDaysPlannedOn", it.scheduleDaysPlannedOn)
@@ -69,6 +62,7 @@ class HomeActivity : AppCompatActivity() {
             scheduleClickListener = {
                 val intent = Intent(this, ScheduleActivity::class.java)
                 intent.putExtra("scheduleName", it.scheduleName)
+                intent.putExtra("scheduleId", it.scheduleId)
                 startActivity(intent)
                 finish()
             }

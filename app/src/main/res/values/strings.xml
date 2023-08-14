@@ -58,5 +58,7 @@
     <string name="today_s_logs">Today\'s Logs</string>
     <string name="set">Set</string>
     <string name="weight">Weight (kgs)</string>
+    <string name="edit_reps">Edit Reps</string>
+    <string name="edit_weight_kgs">Edit Weight (kgs)</string>
 
 </resources>

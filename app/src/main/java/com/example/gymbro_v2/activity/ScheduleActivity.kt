@@ -1,14 +1,13 @@
 package com.example.gymbro_v2.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import com.example.gymbro_v2.R
 import com.example.gymbro_v2.adapter.ExerciseAdapter
 import com.example.gymbro_v2.database.entities.Exercise
@@ -23,7 +22,6 @@ class ScheduleActivity : AppCompatActivity() {
     lateinit var binding: ActivityScheduleBinding
     private lateinit var materialScheduleAlertDialog: MaterialAlertDialogBuilder
     private lateinit var customAlertDialogView: View
-    private lateinit var scheduleName: String
     private val scheduleViewModel: ScheduleViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,17 +31,20 @@ class ScheduleActivity : AppCompatActivity() {
 
         materialScheduleAlertDialog = MaterialAlertDialogBuilder(binding.root.context)
 
-        scheduleName = intent.getStringExtra("scheduleName").toString()
-        title = scheduleName
+        scheduleViewModel.scheduleId = intent.getIntExtra("scheduleId", -1)
+        scheduleViewModel.scheduleName = intent.getStringExtra("scheduleName").toString().also {
+            title = it
+        }
 
         val exerciseAdapter = ExerciseAdapter {
             val intent = Intent(this, ExerciseActivity::class.java)
+            intent.putExtra("exerciseId", it.exerciseId)
             intent.putExtra("exerciseName", it.exerciseName)
             startActivity(intent)
         }
 
         binding.scheduleRvMain.adapter = exerciseAdapter
-        scheduleViewModel.getExercisesOfSchedule(scheduleName)
+        scheduleViewModel.getExercisesOfSchedule()
         scheduleViewModel.exercisesOfSchedule.observe(this) {
             if (it.isNullOrEmpty() || it.first().exercises.isEmpty()) {
                 binding.scheduleTvEmptyRv.visibility = View.VISIBLE
@@ -74,7 +75,7 @@ class ScheduleActivity : AppCompatActivity() {
                 } else if (exerciseInstructions.isBlank()) {
                     Toast.makeText(this, "Failed: Add Description", Toast.LENGTH_LONG).show()
                 } else {
-                    scheduleViewModel.insertExercise(Exercise(0, exerciseName, exerciseInstructions), scheduleName = scheduleName)
+                    scheduleViewModel.insertExercise(Exercise(0, exerciseName, exerciseInstructions))
                     dialog.dismiss()
                 }
             }

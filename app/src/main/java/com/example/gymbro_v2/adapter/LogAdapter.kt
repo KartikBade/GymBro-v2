@@ -8,10 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.gymbro_v2.database.entities.Log
 import com.example.gymbro_v2.databinding.LogListItemBinding
 
-class LogAdapter: ListAdapter<Log, LogAdapter.LogViewHolder>(DiffCallBack) {
+class LogAdapter(
+    private val logClickListener: (Log) -> Unit
+): ListAdapter<Log, LogAdapter.LogViewHolder>(DiffCallBack) {
 
     class LogViewHolder(
-        private val binding: LogListItemBinding
+        val binding: LogListItemBinding
     ): RecyclerView.ViewHolder(binding.root) {
 
         fun bind(log: Log, setCount: Int) {
@@ -27,6 +29,9 @@ class LogAdapter: ListAdapter<Log, LogAdapter.LogViewHolder>(DiffCallBack) {
 
     override fun onBindViewHolder(holder: LogViewHolder, position: Int) {
         holder.bind(getItem(position), position+1)
+        holder.binding.logLinearLayout.setOnClickListener {
+            logClickListener(getItem(position))
+        }
     }
 
     companion object DiffCallBack: DiffUtil.ItemCallback<Log>() {

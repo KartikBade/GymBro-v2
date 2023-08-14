@@ -17,20 +17,21 @@ class ScheduleViewModel @Inject constructor(
 ): ViewModel() {
 
     var exercisesOfSchedule: MutableLiveData<List<ScheduleWithExercises>> = MutableLiveData()
+    var scheduleId = -1
+    var scheduleName = ""
 
-    fun getExercisesOfSchedule(scheduleName: String) {
+    fun getExercisesOfSchedule() {
         viewModelScope.launch {
-            exercisesOfSchedule.value = userRepository.getExercisesOfSchedule(scheduleName)
+            exercisesOfSchedule.value = userRepository.getExercisesOfSchedule(scheduleId)
         }
     }
 
-    fun insertExercise(exercise: Exercise, scheduleName: String) {
+    fun insertExercise(exercise: Exercise) {
         viewModelScope.launch {
             userRepository.insertExercise(exercise)
-            val scheduleId = userRepository.findScheduleId(scheduleName)
             val exerciseId = userRepository.findExerciseId(exercise.exerciseName)
             userRepository.insertScheduleExerciseCrossRef(ScheduleExerciseCrossRef(scheduleId, exerciseId))
-            getExercisesOfSchedule(scheduleName)
+            getExercisesOfSchedule()
         }
     }
 }

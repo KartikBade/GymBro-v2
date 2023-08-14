@@ -17,18 +17,18 @@ class ExerciseViewModel @Inject constructor(
 
     val todaysLogs: MutableLiveData<List<ExerciseWithLogs>> = MutableLiveData()
     var exerciseName = ""
+    var exerciseId = -1
 
     fun insertLog(time: String, date: String, reps: Int, weight: Int) {
         viewModelScope.launch {
-            val exerciseId = userRepository.findExerciseId(exerciseName)
             userRepository.insertLog(Log(0, exerciseId, time, date, reps, weight))
-            todaysLogs.value = userRepository.getLogsOfExercise(exerciseName)
+            todaysLogs.value = userRepository.getLogsOfExercise(exerciseId)
         }
     }
 
     fun getLogsOfExercise() {
         viewModelScope.launch {
-            todaysLogs.value = userRepository.getLogsOfExercise(exerciseName)
+            todaysLogs.value = userRepository.getLogsOfExercise(exerciseId)
         }
     }
 }

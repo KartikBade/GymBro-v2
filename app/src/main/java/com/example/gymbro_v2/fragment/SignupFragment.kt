@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import com.example.gymbro_v2.R
 import com.example.gymbro_v2.activity.AuthActivity
 import com.example.gymbro_v2.activity.HomeActivity
-import com.example.gymbro_v2.databinding.FragmentLoginBinding
 import com.example.gymbro_v2.databinding.FragmentSignupBinding
 import com.example.gymbro_v2.model.User
 import com.example.gymbro_v2.viewmodel.AuthViewModel
@@ -22,7 +21,7 @@ class SignupFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentSignupBinding.inflate(layoutInflater)
         authViewModel = (activity as AuthActivity).authViewModel
         return binding.root
