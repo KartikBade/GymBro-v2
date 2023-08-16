@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import com.example.gymbro_v2.R
 import com.example.gymbro_v2.adapter.LogAdapter
-import com.example.gymbro_v2.database.entities.Exercise
 import com.example.gymbro_v2.database.entities.Log
 import com.example.gymbro_v2.databinding.ActivityExerciseBinding
 import com.example.gymbro_v2.viewmodel.ExerciseViewModel
@@ -65,6 +64,7 @@ class ExerciseActivity : AppCompatActivity() {
             }
         }
 
+        exerciseViewModel.getLogsOfExercise()
         val logAdapter = LogAdapter {
             launchCustomAlertDialog(it)
         }
@@ -77,6 +77,14 @@ class ExerciseActivity : AppCompatActivity() {
                 }
             }
             logAdapter.submitList(finalList)
+
+            if (finalList.isEmpty()) {
+                binding.linearLayoutLogItemLabels.visibility = View.GONE
+                binding.tvEmptyLogs.visibility = View.VISIBLE
+            } else {
+                binding.linearLayoutLogItemLabels.visibility = View.VISIBLE
+                binding.tvEmptyLogs.visibility = View.GONE
+            }
         }
 
         binding.ivDecReps.setOnClickListener {

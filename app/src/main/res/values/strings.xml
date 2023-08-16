@@ -60,5 +60,6 @@
     <string name="weight">Weight (kgs)</string>
     <string name="edit_reps">Edit Reps</string>
     <string name="edit_weight_kgs">Edit Weight (kgs)</string>
+    <string name="no_logs_recorded_today">No logs recorded today</string>
 
 </resources>
