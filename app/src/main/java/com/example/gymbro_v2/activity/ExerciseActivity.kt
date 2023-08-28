@@ -2,13 +2,14 @@ package com.example.gymbro_v2.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
+import android.view.*
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.example.gymbro_v2.R
 import com.example.gymbro_v2.adapter.LogAdapter
+import com.example.gymbro_v2.database.entities.Exercise
 import com.example.gymbro_v2.database.entities.Log
 import com.example.gymbro_v2.databinding.ActivityExerciseBinding
 import com.example.gymbro_v2.viewmodel.ExerciseViewModel
@@ -31,11 +32,16 @@ class ExerciseActivity : AppCompatActivity() {
 
         materialScheduleAlertDialog = MaterialAlertDialogBuilder(binding.root.context)
 
-        val exerciseId = intent.getIntExtra("exerciseId", -1)
-        val exerciseName = intent.getStringExtra("exerciseName").toString()
-        binding.tvExerciseTitle.text = exerciseName
-        exerciseViewModel.exerciseName = exerciseName
-        exerciseViewModel.exerciseId = exerciseId
+        val id = intent.getIntExtra("exerciseId", -1)
+        val name = intent.getStringExtra("exerciseName").toString()
+        val instructions = intent.getStringExtra("exerciseInstructions").toString()
+        exerciseViewModel.setCurrentExercise(Exercise(id, name, instructions))
+
+        exerciseViewModel.currentExercise.observe(this) { exercise ->
+            exercise?.let {
+                binding.tvExerciseTitle.text = it.exerciseName
+            }
+        }
 
         val sdfDate = SimpleDateFormat("dd-MM-yyyy")
         val sdfTime = SimpleDateFormat("HH:mm:ss")
@@ -60,7 +66,7 @@ class ExerciseActivity : AppCompatActivity() {
             } catch (e: ClassCastException) {
                 Toast.makeText(this, "Invalid values entered", Toast.LENGTH_SHORT).show()
             } catch (e: Exception) {
-                Toast.makeText(this, "Something when wrong!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Something went wrong!", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -131,6 +137,26 @@ class ExerciseActivity : AppCompatActivity() {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        MenuInflater(this).inflate(R.menu.exercise_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.edit_exercise -> {
+                launchCustomAlertDialog()
+                return true
+            }
+            R.id.delete_exercise -> {
+                exerciseViewModel.deleteExercise()
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     private fun launchCustomAlertDialog(log: Log) {
         val customAlertDialogView = LayoutInflater.from(this).inflate(R.layout.alert_dialog_edit_log, binding.root, false)
         val etEditWeight: TextView = customAlertDialogView.findViewById(R.id.et_edit_weight)
@@ -159,6 +185,36 @@ class ExerciseActivity : AppCompatActivity() {
             }
             .setNeutralButton("Delete") { dialog, _ ->
                 exerciseViewModel.deleteLog(log.logId)
+                dialog.dismiss()
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
+    }
+
+    private fun launchCustomAlertDialog() {
+        val customAlertDialogView = LayoutInflater.from(this).inflate(R.layout.alert_dialog_edit_exercise, binding.root, false)
+        val etEditName: EditText = customAlertDialogView.findViewById(R.id.et_edit_name)
+        val etEditInstructions: EditText = customAlertDialogView.findViewById(R.id.et_edit_instructions)
+
+        exerciseViewModel.currentExercise.value?.let {
+            etEditName.setText(it.exerciseName)
+            etEditInstructions.setText(it.exerciseInstructions)
+        }
+
+        materialScheduleAlertDialog.setView(customAlertDialogView)
+            .setTitle("Edit Exercise")
+            .setPositiveButton("Edit") { dialog, _ ->
+                val exerciseName = etEditName.text.toString().trim()
+                val exerciseInstructions = etEditInstructions.text.toString().trim()
+
+                if (exerciseName.isBlank() || exerciseInstructions.isBlank()) {
+                    Toast.makeText(this, "Invalid Input.", Toast.LENGTH_SHORT).show()
+                    dialog.dismiss()
+                }
+
+                exerciseViewModel.editExercise(exerciseName, exerciseInstructions)
                 dialog.dismiss()
             }
             .setNegativeButton("Cancel") { dialog, _ ->

@@ -2,6 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_list_item_parent_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
@@ -9,162 +10,19 @@
     android:layout_marginEnd="20dp"
     android:layout_marginTop="20dp"
     android:layout_marginBottom="20dp"
-    app:cardCornerRadius="8dp">
+    app:cardCornerRadius="10dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/home_list_item_constraint_parent"
+        <TextView
+            android:id="@+id/list_item_tv_schedule_title"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraint_layout_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:id="@+id/home_list_item_tv_schedule_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/material_dynamic_neutral50"
-                    android:gravity="center"
-                    android:padding="16dp"
-                    android:textColor="@color/white"
-                    android:textSize="22sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Push" />
-
-                <ImageView
-                    android:id="@+id/iv_edit_schedule"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="15dp"
-                    android:src="@drawable/baseline_edit_24_white"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/home_list_item_tv_schedule_title"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <TextView
-                android:id="@+id/home_list_item_tv_schedule_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="8dp"
-                android:gravity="center_vertical"
-                android:lineSpacingExtra="5dp"
-                android:padding="8dp"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/constraint_layout_title"
-                tools:text="Train your pushing muscles like the chest, triceps and shoulders." />
-
-            <LinearLayout
-                android:id="@+id/home_list_item_linear_parent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="20dp"
-                android:background="@color/material_dynamic_neutral50"
-                app:layout_constraintTop_toBottomOf="@id/home_list_item_tv_schedule_description">
-
-                <TextView
-                    android:id="@+id/monday"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:padding="12dp"
-                    android:textSize="14sp"
-                    android:textAlignment="center"
-                    android:textColor="@color/material_dynamic_neutral60"
-                    android:text="@string/mon"/>
-
-                <TextView
-                    android:id="@+id/tuesday"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:padding="12dp"
-                    android:textAlignment="center"
-                    android:textSize="14sp"
-                    android:textColor="@color/material_dynamic_neutral60"
-                    android:text="@string/tue"/>
-
-                <TextView
-                    android:id="@+id/wednesday"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:padding="12dp"
-                    android:textAlignment="center"
-                    android:textSize="14sp"
-                    android:textColor="@color/material_dynamic_neutral60"
-                    android:text="@string/wed"/>
-
-                <TextView
-                    android:id="@+id/thursday"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:padding="12dp"
-                    android:textAlignment="center"
-                    android:textSize="14sp"
-                    android:textColor="@color/material_dynamic_neutral60"
-                    android:text="@string/thu"/>
-
-                <TextView
-                    android:id="@+id/friday"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:padding="12dp"
-                    android:textAlignment="center"
-                    android:textSize="14sp"
-                    android:textColor="@color/material_dynamic_neutral60"
-                    android:text="@string/fri"/>
-
-                <TextView
-                    android:id="@+id/saturday"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:padding="12dp"
-                    android:textAlignment="center"
-                    android:textSize="14sp"
-                    android:textColor="@color/material_dynamic_neutral60"
-                    android:text="@string/sat"/>
-
-                <TextView
-                    android:id="@+id/sunday"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:padding="12dp"
-                    android:textAlignment="center"
-                    android:textSize="14sp"
-                    android:textColor="@color/material_dynamic_neutral60"
-                    android:text="@string/sun"/>
-            </LinearLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_height="wrap_content"
+            tools:text="Push"
+            android:maxLines="2"
+            android:gravity="center"
+            android:padding="50dp"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:background="@color/material_dynamic_neutral70"/>
 
 </androidx.cardview.widget.CardView>

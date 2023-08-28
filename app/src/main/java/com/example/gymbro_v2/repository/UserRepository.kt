@@ -26,13 +26,21 @@ class UserRepository(
         scheduleDatabase.getDao().deleteScheduleExerciseCrossRefs()
     }
 
-    suspend fun insertSchedule(schedule: Schedule) = scheduleDatabase.getDao().insertSchedule(schedule)
-
     fun getAllSchedules() = scheduleDatabase.getDao().getAllSchedules()
+
+    suspend fun getScheduleById(scheduleId: Int) = scheduleDatabase.getDao().getScheduleById(scheduleId)
+
+    suspend fun getExerciseById(exerciseId: Int) = scheduleDatabase.getDao().getExerciseById(exerciseId)
+
+    suspend fun insertSchedule(schedule: Schedule) = scheduleDatabase.getDao().insertSchedule(schedule)
 
     suspend fun deleteSchedule(scheduleId: Int) = scheduleDatabase.getDao().deleteSchedule(scheduleId)
 
+    suspend fun deleteExercise(exerciseId: Int) = scheduleDatabase.getDao().deleteExercise(exerciseId)
+
     suspend fun editSchedule(scheduleId: Int, scheduleName: String, scheduleDescription: String, scheduleDaysPlannedOn: String) = scheduleDatabase.getDao().editSchedule(scheduleId, scheduleName, scheduleDescription, scheduleDaysPlannedOn)
+
+    suspend fun editExercise(exerciseId: Int, exerciseName: String, exerciseInstructions: String) = scheduleDatabase.getDao().editExercise(exerciseId, exerciseName, exerciseInstructions)
 
     suspend fun insertExercise(exercise: Exercise) = scheduleDatabase.getDao().insertExercise(exercise)
 

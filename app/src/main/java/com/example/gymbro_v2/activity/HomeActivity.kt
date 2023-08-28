@@ -50,18 +50,12 @@ class HomeActivity : AppCompatActivity() {
 
         val scheduleAdapter = ScheduleAdapter(
             this,
-            editScheduleClickListener = {
-                val intent = Intent(this, EditScheduleActivity::class.java)
-                intent.putExtra("scheduleId", it.scheduleId)
-                intent.putExtra("oldScheduleName", it.scheduleName)
-                intent.putExtra("oldScheduleDescription", it.scheduleDescription)
-                intent.putExtra("oldScheduleDaysPlannedOn", it.scheduleDaysPlannedOn)
-                startActivity(intent)
-            },
             scheduleClickListener = {
                 val intent = Intent(this, ScheduleActivity::class.java)
-                intent.putExtra("scheduleName", it.scheduleName)
                 intent.putExtra("scheduleId", it.scheduleId)
+                intent.putExtra("scheduleName", it.scheduleName)
+                intent.putExtra("scheduleDescription", it.scheduleDescription)
+                intent.putExtra("scheduleDaysPlannedOn", it.scheduleDaysPlannedOn)
                 startActivity(intent)
             }
         )

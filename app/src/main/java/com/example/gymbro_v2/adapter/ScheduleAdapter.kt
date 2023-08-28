@@ -14,38 +14,24 @@ import java.util.*
 
 class ScheduleAdapter(
     private val context: Context,
-    private val editScheduleClickListener: (Schedule) -> Unit,
     private val scheduleClickListener: (Schedule) -> Unit): ListAdapter<Schedule, ScheduleAdapter.ScheduleAdapterViewHolder>(DiffCallBack) {
 
     class ScheduleAdapterViewHolder(
         private val binding: HomeRvMainListItemBinding,
-        private val editScheduleClickListener: (Schedule) -> Unit,
         private val scheduleClickListener: (Schedule) -> Unit
     ): RecyclerView.ViewHolder(binding.root) {
 
         fun bind(context: Context, schedule: Schedule) {
-            binding.homeListItemTvScheduleTitle.text = schedule.scheduleName
-            binding.homeListItemTvScheduleDescription.text = schedule.scheduleDescription
+            binding.listItemTvScheduleTitle.text = schedule.scheduleName
             val daysPlannedOn = schedule.scheduleDaysPlannedOn
-            if (daysPlannedOn.contains("Mon")) { binding.monday.setTextColor(context.getColor(R.color.white)) }
-            if (daysPlannedOn.contains("Tue")) { binding.tuesday.setTextColor(context.getColor(R.color.white)) }
-            if (daysPlannedOn.contains("Wed")) { binding.wednesday.setTextColor(context.getColor(R.color.white)) }
-            if (daysPlannedOn.contains("Thu")) { binding.thursday.setTextColor(context.getColor(R.color.white)) }
-            if (daysPlannedOn.contains("Fri")) { binding.friday.setTextColor(context.getColor(R.color.white)) }
-            if (daysPlannedOn.contains("Sat")) { binding.saturday.setTextColor(context.getColor(R.color.white)) }
-            if (daysPlannedOn.contains("Sun")) { binding.sunday.setTextColor(context.getColor(R.color.white)) }
             val sdf = SimpleDateFormat("EEE")
             val d = Date()
             val dayOfTheWeek: String = sdf.format(d)
             if (daysPlannedOn.contains(dayOfTheWeek)) {
-                binding.homeListItemTvScheduleTitle.setBackgroundColor(context.getColor(R.color.purple_500))
-                binding.homeListItemTvScheduleDescription.setTextColor(context.getColor(R.color.black))
-                binding.homeListItemLinearParent.setBackgroundColor(context.getColor(R.color.purple_500))
+                binding.listItemTvScheduleTitle.setBackgroundColor(context.getColor(R.color.purple_500))
+                binding.listItemTvScheduleTitle.setTextColor(context.getColor(R.color.white))
             }
-            binding.ivEditSchedule.setOnClickListener {
-                editScheduleClickListener(schedule)
-            }
-            binding.homeListItemConstraintParent.setOnClickListener {
+            binding.homeListItemParentLayout.setOnClickListener {
                 scheduleClickListener(schedule)
             }
         }
@@ -54,7 +40,6 @@ class ScheduleAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScheduleAdapterViewHolder {
         return ScheduleAdapterViewHolder(HomeRvMainListItemBinding.inflate(
             LayoutInflater.from(parent.context), parent, false),
-            editScheduleClickListener,
             scheduleClickListener
         )
     }

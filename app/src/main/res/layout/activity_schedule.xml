@@ -6,6 +6,44 @@
     android:layout_height="match_parent"
     tools:context=".activity.ScheduleActivity">
 
+    <TextView
+        android:id="@+id/tv_schedule_description_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/description"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="16dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_schedule_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="Trains pull muscles 3 times in a week."
+        android:textSize="16sp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:layout_marginTop="8dp"
+        android:maxLines="3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_schedule_description_label"/>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/divider_description_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_marginTop="16dp"
+        app:dividerColor="@color/design_default_color_primary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_schedule_description"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/schedule_rv_main"
         android:layout_width="match_parent"
@@ -14,7 +52,7 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider_description_recyclerview"
         tools:itemCount="10" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

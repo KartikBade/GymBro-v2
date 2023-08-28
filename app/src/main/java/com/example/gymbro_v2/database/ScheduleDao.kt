@@ -13,26 +13,38 @@ import com.example.gymbro_v2.database.relations.ScheduleWithExercises
 @Dao
 interface ScheduleDao {
 
-    @Insert(onConflict = OnConflictStrategy.ABORT)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertSchedule(schedule: Schedule)
 
-    @Insert(onConflict = OnConflictStrategy.ABORT)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertExercise(exercise: Exercise)
 
-    @Insert(onConflict = OnConflictStrategy.ABORT)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertScheduleExerciseCrossRef(crossRef: ScheduleExerciseCrossRef)
 
-    @Insert(onConflict = OnConflictStrategy.ABORT)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertLog(log: Log)
 
     @Query("SELECT * FROM schedule")
     fun getAllSchedules(): LiveData<List<Schedule>>
 
+    @Query("SELECT * FROM schedule WHERE scheduleId = :scheduleId")
+    suspend fun getScheduleById(scheduleId: Int): Schedule
+
+    @Query("SELECT * FROM exercise WHERE exerciseId = :exerciseId")
+    suspend fun getExerciseById(exerciseId: Int): Exercise
+
     @Query("DELETE FROM schedule WHERE scheduleId = :scheduleId")
     suspend fun deleteSchedule(scheduleId: Int)
 
+    @Query("DELETE FROM exercise WHERE exerciseId = :exerciseId")
+    suspend fun deleteExercise(exerciseId: Int)
+
     @Query("UPDATE schedule SET scheduleName = :scheduleName, scheduleDescription  = :scheduleDescription, scheduleDaysPlannedOn = :scheduleDaysPlannedOn WHERE scheduleId = :scheduleId")
     suspend fun editSchedule(scheduleId: Int, scheduleName: String, scheduleDescription: String, scheduleDaysPlannedOn: String)
+
+    @Query("UPDATE exercise SET exerciseName = :exerciseName, exerciseInstructions  = :exerciseInstructions WHERE exerciseId = :exerciseId")
+    suspend fun editExercise(exerciseId: Int, exerciseName: String, exerciseInstructions: String)
 
     @Query("DELETE FROM exercise")
     suspend fun deleteAllExercises()
