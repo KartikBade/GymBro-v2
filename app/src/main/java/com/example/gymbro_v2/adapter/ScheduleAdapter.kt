@@ -22,14 +22,15 @@ class ScheduleAdapter(
     ): RecyclerView.ViewHolder(binding.root) {
 
         fun bind(context: Context, schedule: Schedule) {
-            binding.listItemTvScheduleTitle.text = schedule.scheduleName
+            binding.scheduleTitle.text = schedule.scheduleName
+            binding.scheduleDescription.text = schedule.scheduleDescription
             val daysPlannedOn = schedule.scheduleDaysPlannedOn
             val sdf = SimpleDateFormat("EEE")
             val d = Date()
             val dayOfTheWeek: String = sdf.format(d)
             if (daysPlannedOn.contains(dayOfTheWeek)) {
-                binding.listItemTvScheduleTitle.setBackgroundColor(context.getColor(R.color.purple_500))
-                binding.listItemTvScheduleTitle.setTextColor(context.getColor(R.color.white))
+                binding.scheduleTitle.setBackgroundColor(context.getColor(R.color.purple_500))
+                binding.scheduleDescription.setTextColor(context.getColor(R.color.black))
             }
             binding.homeListItemParentLayout.setOnClickListener {
                 scheduleClickListener(schedule)
