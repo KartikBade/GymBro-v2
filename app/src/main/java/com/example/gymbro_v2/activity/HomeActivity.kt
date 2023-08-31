@@ -44,6 +44,10 @@ class HomeActivity : AppCompatActivity() {
                         finish()
                     }
                 }
+                R.id.home_drawer_settings -> {
+                    val intent = Intent(this, SettingsActivity::class.java)
+                    startActivity(intent)
+                }
             }
             true
         }

@@ -65,5 +65,12 @@
     <string name="description">Description:</string>
     <string name="edit_name">Edit Name</string>
     <string name="edit_instructions">Edit Instructions</string>
+    <string name="settings">Settings</string>
+    <string name="backup">Backup</string>
+    <string name="backup_frequency">Backup Frequency</string>
+    <string name="never">Never</string>
+    <string name="once_per_day">Once per day</string>
+    <string name="once_per_week">Once per week</string>
+    <string name="backup_now">Backup Now</string>
 
 </resources>

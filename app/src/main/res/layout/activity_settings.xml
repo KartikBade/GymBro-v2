@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.SettingsActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_settings_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="30dp"
+            android:text="@string/settings"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_backup_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_settings_title"
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:text="@string/backup"
+            android:textColor="@color/design_default_color_primary"/>
+
+        <TextView
+            android:id="@+id/tv_backup_frequency_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/backup_frequency"
+            android:textSize="15sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_backup_title" />
+
+        <RadioGroup
+            android:id="@+id/rg_backup_frequency"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_backup_frequency_title">
+
+            <RadioButton
+                android:id="@+id/rb_backup_frequency_never"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/never"
+                android:textSize="15sp"
+                android:checked="true"/>
+
+            <RadioButton
+                android:id="@+id/rb_backup_frequency_per_day"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/once_per_day"
+                android:textSize="15sp"/>
+
+            <RadioButton
+                android:id="@+id/rb_backup_frequency_per_week"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/once_per_week"
+                android:textSize="15sp"/>
+
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/btn_backup_now"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:text="@string/backup_now"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rg_backup_frequency"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
