@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$PROJECT_DIR$/../../../Kartik%20Bade/AppData/Local/Android/Sdk/icons/material/materialicons/arrow_forward_ios/baseline_arrow_forward_ios_24.xml" />
+                                      <entry key="url" value="file:/$PROJECT_DIR$/../../../Kartik%20Bade/AppData/Local/Android/Sdk/icons/material/materialicons/backup/baseline_backup_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,7 +28,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="baseline_arrow_forward_ios_24" />
+                            <entry key="outputName" value="baseline_backup_24" />
                             <entry key="sourceFile" value="C:\Users\Kartik Bade\AndroidStudioProjects\GymBrov2" />
                           </map>
                         </option>

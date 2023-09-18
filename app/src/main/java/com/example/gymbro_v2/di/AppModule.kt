@@ -34,6 +34,7 @@ object AppModule {
         return UserRepository(
             context,
             FirebaseAuth.getInstance(),
+            Firebase.firestore,
             ScheduleDatabase.getDatabase(context)
         )
     }

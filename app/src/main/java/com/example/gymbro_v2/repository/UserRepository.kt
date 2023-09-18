@@ -8,10 +8,12 @@ import com.example.gymbro_v2.database.entities.Log
 import com.example.gymbro_v2.database.entities.Schedule
 import com.example.gymbro_v2.database.relations.ScheduleExerciseCrossRef
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class UserRepository(
     private val context: Context,
     private val firebaseAuth: FirebaseAuth,
+    private val firebaseDatabase: FirebaseFirestore,
     private val scheduleDatabase: ScheduleDatabase
 ) {
 
@@ -57,4 +59,11 @@ class UserRepository(
     suspend fun editLog(weight: Int, reps: Int, logId: Int) = scheduleDatabase.getDao().editLog(weight, reps, logId)
 
     suspend fun deleteLog(logId: Int) = scheduleDatabase.getDao().deleteLog(logId)
+
+    suspend fun dataBackup() {
+        firebaseAuth.currentUser?.email?.let {
+            firebaseDatabase.collection("users")
+                .document(it)
+        }
+    }
 }

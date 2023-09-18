@@ -9,7 +9,9 @@ import androidx.activity.viewModels
 import com.example.gymbro_v2.R
 import com.example.gymbro_v2.databinding.ActivitySettingsBinding
 import com.example.gymbro_v2.viewmodel.SettingsViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SettingsActivity : AppCompatActivity() {
 
     lateinit var binding: ActivitySettingsBinding
@@ -22,13 +24,13 @@ class SettingsActivity : AppCompatActivity() {
 
         binding.rgBackupFrequency.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
-                R.id.rb_backup_frequency_never -> { Toast.makeText(this, "NEVER!", Toast.LENGTH_SHORT).show() }
-                R.id.rb_backup_frequency_per_day -> { Toast.makeText(this, "PER DAY!", Toast.LENGTH_SHORT).show() }
-                R.id.rb_backup_frequency_per_week -> { Toast.makeText(this, "PER WEEK!", Toast.LENGTH_SHORT).show() }
+                R.id.rb_backup_frequency_never -> { settingsViewModel.setWorkerMode(0) }
+                R.id.rb_backup_frequency_per_day -> { settingsViewModel.setWorkerMode(1) }
+                R.id.rb_backup_frequency_per_week -> { settingsViewModel.setWorkerMode(2) }
             }
         }
         binding.btnBackupNow.setOnClickListener {
-            Toast.makeText(this, "Data Backup Started!", Toast.LENGTH_SHORT).show()
+            settingsViewModel.setWorkerMode(3)
         }
     }
 }

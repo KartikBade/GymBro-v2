@@ -72,5 +72,7 @@
     <string name="once_per_day">Once per day</string>
     <string name="once_per_week">Once per week</string>
     <string name="backup_now">Backup Now</string>
+    <string name="channel_name">backup_channel</string>
+    <string name="channel_description">backup_process_notification</string>
 
 </resources>
