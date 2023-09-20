@@ -61,9 +61,79 @@ class UserRepository(
     suspend fun deleteLog(logId: Int) = scheduleDatabase.getDao().deleteLog(logId)
 
     suspend fun dataBackup() {
-        firebaseAuth.currentUser?.email?.let {
-            firebaseDatabase.collection("users")
-                .document(it)
+        firebaseAuth.currentUser?.email?.let { email ->
+            val listOfSchedules = getAllSchedules().value
+            listOfSchedules?.let {
+                for (schedule in it) {
+                    val scheduleData = hashMapOf(
+                        "ScheduleId" to schedule.scheduleId,
+                        "ScheduleName" to schedule.scheduleName,
+                        "ScheduleDescription" to schedule.scheduleDescription,
+                        "ScheduleDaysPlannedOn" to schedule.scheduleDaysPlannedOn
+                    )
+
+                    firebaseDatabase.collection("users")
+                        .document(email)
+                        .collection("schedules")
+                        .document(schedule.scheduleId.toString())
+                        .set(scheduleData)
+
+                    val listOfScheduleWithExercises = getExercisesOfSchedule(schedule.scheduleId).first()
+                    val listOfExercises = listOfScheduleWithExercises.exercises
+                    for (exercise in listOfExercises) {
+                        val exerciseData = hashMapOf(
+                            "ExerciseId" to exercise.exerciseId,
+                            "ExerciseName" to exercise.exerciseName,
+                            "ExerciseInstructions" to exercise.exerciseInstructions
+                        )
+
+                        firebaseDatabase.collection("users")
+                            .document(email)
+                            .collection("schedules")
+                            .document(schedule.scheduleId.toString())
+                            .collection("exercises")
+                            .document(exercise.exerciseId.toString())
+                            .set(exerciseData)
+
+                        val listOfExerciseWithLogs = getLogsOfExercise(exercise.exerciseId).first()
+                        val listOfLogs = listOfExerciseWithLogs.logs
+                        for (log in listOfLogs) {
+                            val logData = hashMapOf(
+                                "LogId" to log.logId,
+                                "ExerciseId" to log.exerciseId,
+                                "Time" to log.time,
+                                "Date" to log.date,
+                                "Reps" to log.reps,
+                                "Weight" to log.weight
+                            )
+
+                            firebaseDatabase.collection("users")
+                                .document(email)
+                                .collection("schedules")
+                                .document(schedule.scheduleId.toString())
+                                .collection("exercises")
+                                .document(exercise.exerciseId.toString())
+                                .collection("logs")
+                                .document(log.logId.toString())
+                                .set(logData)
+                        }
+                    }
+                }
+            }
+
+            val listOfScheduleExerciseCrossRefs = scheduleDatabase.getDao().getAllScheduleExerciseCrossRefs()
+            for (scheduleExerciseCrossRef in listOfScheduleExerciseCrossRefs) {
+                val scheduleExerciseCrossRefData = hashMapOf(
+                    "ScheduleId" to scheduleExerciseCrossRef.scheduleId,
+                    "to" to scheduleExerciseCrossRef.exerciseId
+                )
+
+                firebaseDatabase.collection("users")
+                    .document(email)
+                    .collection("schedule_exercise_cross_refs")
+                    .document()
+                    .set(scheduleExerciseCrossRefData)
+            }
         }
     }
 }
