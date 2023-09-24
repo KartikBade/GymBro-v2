@@ -46,6 +46,24 @@ class BackupWorker @AssistedInject constructor(
             .setOnlyAlertOnce(true)
             .setColor(Color.GREEN)
 
+        val successNotificationBuilder = NotificationCompat.Builder(applicationContext, GymBroApp.CHANNEL_ID)
+            .setSmallIcon(R.drawable.baseline_backup_24)
+            .setContentTitle("GymBro Data Backup")
+            .setContentText("Backup Successful")
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setAutoCancel(true)
+            .setOnlyAlertOnce(true)
+            .setColor(Color.GREEN)
+
+        val failureNotificationBuilder = NotificationCompat.Builder(applicationContext, GymBroApp.CHANNEL_ID)
+            .setSmallIcon(R.drawable.baseline_backup_24)
+            .setContentTitle("GymBro Data Backup")
+            .setContentText("Backup Failed")
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setAutoCancel(true)
+            .setOnlyAlertOnce(true)
+            .setColor(Color.GREEN)
+
         if (ActivityCompat.checkSelfPermission(
                 applicationContext,
                 Manifest.permission.POST_NOTIFICATIONS
@@ -54,8 +72,14 @@ class BackupWorker @AssistedInject constructor(
             NotificationManagerCompat.from(applicationContext).notify(48, notificationBuilder.build())
         }
 
-        userRepository.dataBackup()
-
-        return Result.success()
+        return if (userRepository.dataBackup()) {
+            NotificationManagerCompat.from(context).cancel(48)
+            NotificationManagerCompat.from(applicationContext).notify(48, successNotificationBuilder.build())
+            Result.success()
+        } else {
+            NotificationManagerCompat.from(context).cancel(48)
+            NotificationManagerCompat.from(applicationContext).notify(48, failureNotificationBuilder.build())
+            Result.failure()
+        }
     }
 }

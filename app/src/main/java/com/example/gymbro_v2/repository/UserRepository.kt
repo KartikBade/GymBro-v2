@@ -9,6 +9,7 @@ import com.example.gymbro_v2.database.entities.Schedule
 import com.example.gymbro_v2.database.relations.ScheduleExerciseCrossRef
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.tasks.await
 
 class UserRepository(
     private val context: Context,
@@ -60,7 +61,11 @@ class UserRepository(
 
     suspend fun deleteLog(logId: Int) = scheduleDatabase.getDao().deleteLog(logId)
 
-    suspend fun dataBackup() {
+    suspend fun dataBackup(): Boolean {
+        var scheduleSuccess = true
+        var exerciseSuccess = true
+        var logSuccess = true
+
         firebaseAuth.currentUser?.email?.let { email ->
             val listOfSchedules = scheduleDatabase.getDao().getAllSchedulesAsList()
             for (schedule in listOfSchedules) {
@@ -76,8 +81,12 @@ class UserRepository(
                     .collection("schedules")
                     .document(schedule.scheduleId.toString())
                     .set(scheduleData)
+                    .addOnFailureListener {
+                        scheduleSuccess = false
+                    }
 
-                val listOfScheduleWithExercises = getExercisesOfSchedule(schedule.scheduleId).first()
+                val listOfScheduleWithExercises =
+                    getExercisesOfSchedule(schedule.scheduleId).first()
                 val listOfExercises = listOfScheduleWithExercises.exercises
                 for (exercise in listOfExercises) {
                     val exerciseData = hashMapOf(
@@ -93,6 +102,9 @@ class UserRepository(
                         .collection("exercises")
                         .document(exercise.exerciseId.toString())
                         .set(exerciseData)
+                        .addOnFailureListener {
+                            exerciseSuccess = false
+                        }
 
                     val listOfExerciseWithLogs = getLogsOfExercise(exercise.exerciseId).first()
                     val listOfLogs = listOfExerciseWithLogs.logs
@@ -115,23 +127,99 @@ class UserRepository(
                             .collection("logs")
                             .document(log.logId.toString())
                             .set(logData)
+                            .addOnFailureListener {
+                                logSuccess = false
+                            }
                     }
                 }
             }
+        }
+        if (scheduleSuccess && exerciseSuccess && logSuccess) {
+            return true
+        }
+        return false
+    }
 
-            val listOfScheduleExerciseCrossRefs = scheduleDatabase.getDao().getAllScheduleExerciseCrossRefs()
-            for (scheduleExerciseCrossRef in listOfScheduleExerciseCrossRefs) {
-                val scheduleExerciseCrossRefData = hashMapOf(
-                    "ScheduleId" to scheduleExerciseCrossRef.scheduleId,
-                    "to" to scheduleExerciseCrossRef.exerciseId
-                )
+    suspend fun dataImport() {
+        val scheduleList: MutableList<Schedule> = mutableListOf()
+        val exerciseList: MutableList<Exercise> = mutableListOf()
+        val logList: MutableList<Log> = mutableListOf()
+        val crossRefList: MutableList<ScheduleExerciseCrossRef> = mutableListOf()
 
+        firebaseAuth.currentUser?.email?.let { email ->
+            firebaseDatabase.collection("users")
+                .document(email)
+                .collection("schedules")
+                .get()
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        document.apply {
+                             scheduleList.add(Schedule(
+                                data["ScheduleId"].toString().toInt(),
+                                data["ScheduleName"].toString(),
+                                data["ScheduleDescription"].toString(),
+                                data["ScheduleDaysPlannedOn"].toString())
+                            )
+                        }
+                    }
+                }.await()
+
+            for (schedule in scheduleList) {
                 firebaseDatabase.collection("users")
                     .document(email)
-                    .collection("schedule_exercise_cross_refs")
-                    .document()
-                    .set(scheduleExerciseCrossRefData)
+                    .collection("schedules")
+                    .document(schedule.scheduleId.toString())
+                    .collection("exercises")
+                    .get()
+                    .addOnSuccessListener { resultExercise ->
+                        for (documentExercise in resultExercise) {
+                            documentExercise.apply {
+                                exerciseList.add(Exercise(
+                                    data["ExerciseId"].toString().toInt(),
+                                    data["ExerciseName"].toString(),
+                                    data["ExerciseInstructions"].toString())
+                                )
+                                crossRefList.add(ScheduleExerciseCrossRef(
+                                    schedule.scheduleId,
+                                    documentExercise.data["ExerciseId"].toString().toInt())
+                                )
+                            }
+                        }
+                    }.await()
+
+                for (exercise in exerciseList) {
+                    firebaseDatabase.collection("users")
+                        .document(email)
+                        .collection("schedules")
+                        .document(schedule.scheduleId.toString())
+                        .collection("exercises")
+                        .document(exercise.exerciseId.toString())
+                        .collection("logs")
+                        .get()
+                        .addOnSuccessListener { resultLog ->
+                            for (documentLog in resultLog) {
+                                documentLog.apply {
+                                    logList.add( Log(
+                                        data["LogId"].toString().toInt(),
+                                        data["ExerciseId"].toString().toInt(),
+                                        data["Time"].toString(),
+                                        data["Date"].toString(),
+                                        data["Reps"].toString().toInt(),
+                                        data["Weight"].toString().toInt())
+                                    )
+                                }
+                            }
+                        }.await()
+                }
             }
         }
+        scheduleDatabase.getDao().deleteAllExercises()
+        scheduleDatabase.getDao().deleteAllLogs()
+        scheduleDatabase.getDao().deleteAllSchedules()
+        scheduleDatabase.getDao().deleteScheduleExerciseCrossRefs()
+        for (i in scheduleList) { insertSchedule(i) }
+        for (i in exerciseList) { insertExercise(i) }
+        for (i in logList) { insertLog(i) }
+        for (i in crossRefList) { insertScheduleExerciseCrossRef(i) }
     }
 }

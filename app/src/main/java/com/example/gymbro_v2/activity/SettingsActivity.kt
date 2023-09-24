@@ -35,5 +35,8 @@ class SettingsActivity : AppCompatActivity() {
         binding.btnBackupNow.setOnClickListener {
             settingsViewModel.setWorkerMode(3)
         }
+        binding.btnImportData.setOnClickListener {
+            settingsViewModel.importData()
+        }
     }
 }

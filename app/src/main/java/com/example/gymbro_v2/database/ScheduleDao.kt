@@ -22,9 +22,6 @@ interface ScheduleDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertScheduleExerciseCrossRef(crossRef: ScheduleExerciseCrossRef)
 
-    @Query("SELECT * FROM scheduleexercisecrossref")
-    fun getAllScheduleExerciseCrossRefs(): List<ScheduleExerciseCrossRef>
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertLog(log: Log)
 
