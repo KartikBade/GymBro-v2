@@ -10,27 +10,31 @@ import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.hilt.work.HiltWorker
+import androidx.work.CoroutineWorker
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.example.gymbro_v2.GymBroApp
 import com.example.gymbro_v2.R
 import com.example.gymbro_v2.broadcastreceiver.BackupNotificationReceiver
 import com.example.gymbro_v2.repository.UserRepository
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import javax.inject.Inject
 
-class BackupWorker(
-    private val context: Context,
-    workerParameters: WorkerParameters
-): Worker(context, workerParameters) {
+@HiltWorker
+class BackupWorker @AssistedInject constructor(
+    @Assisted val context: Context,
+    @Assisted workerParameters: WorkerParameters,
+    val userRepository: UserRepository
+): CoroutineWorker(context, workerParameters) {
 
-    @Inject lateinit var userRepository: UserRepository
-
-    override fun doWork(): Result {
+    override suspend fun doWork(): Result {
 
         val cancelNotificationIntent = Intent(context, BackupNotificationReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(context, 0, cancelNotificationIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val pendingIntent = PendingIntent.getBroadcast(context, 0, cancelNotificationIntent, PendingIntent.FLAG_IMMUTABLE)
 
         val notificationBuilder = NotificationCompat.Builder(applicationContext, GymBroApp.CHANNEL_ID)
             .setSmallIcon(R.drawable.baseline_backup_24)
@@ -50,7 +54,7 @@ class BackupWorker(
             NotificationManagerCompat.from(applicationContext).notify(48, notificationBuilder.build())
         }
 
-//        userRepository.dataBackup()
+        userRepository.dataBackup()
 
         return Result.success()
     }

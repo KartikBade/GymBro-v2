@@ -31,6 +31,9 @@ interface ScheduleDao {
     @Query("SELECT * FROM schedule")
     fun getAllSchedules(): LiveData<List<Schedule>>
 
+    @Query("SELECT * FROM schedule")
+    fun getAllSchedulesAsList(): List<Schedule>
+
     @Query("SELECT * FROM schedule WHERE scheduleId = :scheduleId")
     suspend fun getScheduleById(scheduleId: Int): Schedule
 

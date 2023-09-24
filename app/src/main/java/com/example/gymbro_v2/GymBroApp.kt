@@ -6,10 +6,13 @@ import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
 import androidx.core.content.getSystemService
+import androidx.hilt.work.HiltWorkerFactory
+import androidx.work.Configuration
 import dagger.hilt.android.HiltAndroidApp
+import javax.inject.Inject
 
 @HiltAndroidApp
-class GymBroApp: Application() {
+class GymBroApp: Application(), Configuration.Provider {
 
     companion object {
         const val CHANNEL_ID = "data_backup_id"
@@ -30,4 +33,11 @@ class GymBroApp: Application() {
             notificationManager.createNotificationChannel(notificationChannel)
         }
     }
+
+    @Inject lateinit var workerFactory: HiltWorkerFactory
+
+    override fun getWorkManagerConfiguration() =
+        Configuration.Builder()
+            .setWorkerFactory(workerFactory)
+            .build()
 }
