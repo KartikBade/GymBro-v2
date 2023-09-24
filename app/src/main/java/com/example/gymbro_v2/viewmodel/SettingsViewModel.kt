@@ -22,10 +22,10 @@ class SettingsViewModel @Inject constructor(
     fun setWorkerMode(state: Int) {
         when (state) {
             0 -> {
-                workManager.cancelAllWork()
+                workManager.cancelUniqueWork("Backup")
             }
             1 -> {
-                workManager.cancelAllWork()
+                workManager.cancelUniqueWork("Backup")
                 val backupWorkRequestBuilder = PeriodicWorkRequestBuilder<BackupWorker>(24, TimeUnit.HOURS)
                     .setConstraints(
                         Constraints.Builder()
@@ -33,10 +33,10 @@ class SettingsViewModel @Inject constructor(
                             .build()
                     )
 
-                workManager.enqueue(backupWorkRequestBuilder.build())
+                workManager.enqueueUniquePeriodicWork("Backup", ExistingPeriodicWorkPolicy.CANCEL_AND_REENQUEUE, backupWorkRequestBuilder.build())
             }
             2 -> {
-                workManager.cancelAllWork()
+                workManager.cancelUniqueWork("Backup")
                 val backupWorkRequestBuilder = PeriodicWorkRequestBuilder<BackupWorker>(168, TimeUnit.HOURS)
                     .setConstraints(
                         Constraints.Builder()
@@ -44,10 +44,10 @@ class SettingsViewModel @Inject constructor(
                             .build()
                     )
 
-                workManager.enqueue(backupWorkRequestBuilder.build())
+                workManager.enqueueUniquePeriodicWork("Backup", ExistingPeriodicWorkPolicy.CANCEL_AND_REENQUEUE, backupWorkRequestBuilder.build())
             }
             3 -> {
-                workManager.cancelAllWork()
+                workManager.cancelUniqueWork("Backup")
                 val backupWorkRequestBuilder = OneTimeWorkRequestBuilder<BackupWorker>()
                     .setConstraints(
                         Constraints.Builder()
@@ -55,7 +55,7 @@ class SettingsViewModel @Inject constructor(
                             .build()
                     )
 
-                workManager.enqueue(backupWorkRequestBuilder.build())
+                workManager.enqueueUniqueWork("Backup", ExistingWorkPolicy.REPLACE, backupWorkRequestBuilder.build())
             }
         }
     }

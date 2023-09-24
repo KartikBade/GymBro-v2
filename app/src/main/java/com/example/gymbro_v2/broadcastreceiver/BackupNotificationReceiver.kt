@@ -11,7 +11,7 @@ class BackupNotificationReceiver: BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         context?.let {
             val workManager = WorkManager.getInstance(it)
-            workManager.cancelAllWork()
+            workManager.cancelUniqueWork("Backup")
 
             NotificationManagerCompat.from(context).cancel(48)
         }
