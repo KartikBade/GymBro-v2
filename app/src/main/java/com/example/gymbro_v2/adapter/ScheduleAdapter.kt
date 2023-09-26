@@ -13,9 +13,10 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class ScheduleAdapter(
-    private val context: Context,
-    private val scheduleClickListener: (Schedule) -> Unit): ListAdapter<Schedule, ScheduleAdapter.ScheduleAdapterViewHolder>(DiffCallBack) {
+    private val scheduleClickListener: (Schedule) -> Unit
+) : ListAdapter<Schedule, ScheduleAdapter.ScheduleAdapterViewHolder>(DiffCallBack) {
 
+    lateinit var context: Context
     class ScheduleAdapterViewHolder(
         private val binding: HomeRvMainListItemBinding,
         private val scheduleClickListener: (Schedule) -> Unit
@@ -39,6 +40,7 @@ class ScheduleAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScheduleAdapterViewHolder {
+        context = parent.context
         return ScheduleAdapterViewHolder(HomeRvMainListItemBinding.inflate(
             LayoutInflater.from(parent.context), parent, false),
             scheduleClickListener

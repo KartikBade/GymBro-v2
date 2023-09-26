@@ -1,7 +1,9 @@
 package com.example.gymbro_v2.activity
 
 import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.RadioGroup
@@ -27,16 +29,16 @@ class SettingsActivity : AppCompatActivity() {
 
         binding.rgBackupFrequency.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
-                R.id.rb_backup_frequency_never -> { settingsViewModel.setWorkerMode(0) }
-                R.id.rb_backup_frequency_per_day -> { settingsViewModel.setWorkerMode(1) }
-                R.id.rb_backup_frequency_per_week -> { settingsViewModel.setWorkerMode(2) }
+                R.id.rb_backup_frequency_never -> { settingsViewModel.setWorkerMode(0, this) }
+                R.id.rb_backup_frequency_per_day -> { settingsViewModel.setWorkerMode(1, this) }
+                R.id.rb_backup_frequency_per_week -> { settingsViewModel.setWorkerMode(2, this) }
             }
         }
         binding.btnBackupNow.setOnClickListener {
-            settingsViewModel.setWorkerMode(3)
+            settingsViewModel.setWorkerMode(3, this)
         }
         binding.btnImportData.setOnClickListener {
-            settingsViewModel.importData()
+            settingsViewModel.importData(this)
         }
     }
 }

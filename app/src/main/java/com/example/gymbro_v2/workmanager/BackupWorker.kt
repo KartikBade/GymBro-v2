@@ -38,31 +38,28 @@ class BackupWorker @AssistedInject constructor(
 
         val notificationBuilder = NotificationCompat.Builder(applicationContext, GymBroApp.CHANNEL_ID)
             .setSmallIcon(R.drawable.baseline_backup_24)
-            .setContentTitle("GymBro Data Backup")
-            .setContentText("Backup is in progress...")
+            .setContentTitle("Backing up data")
+            .setContentText("This may take a while...")
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .addAction(R.drawable.baseline_backup_24, "Cancel", pendingIntent)
             .setAutoCancel(true)
             .setOnlyAlertOnce(true)
-            .setColor(Color.GREEN)
 
         val successNotificationBuilder = NotificationCompat.Builder(applicationContext, GymBroApp.CHANNEL_ID)
             .setSmallIcon(R.drawable.baseline_backup_24)
-            .setContentTitle("GymBro Data Backup")
-            .setContentText("Backup Successful")
+            .setContentTitle("Backup Successful")
+            .setContentText("Data has been uploaded to your account.")
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setAutoCancel(true)
             .setOnlyAlertOnce(true)
-            .setColor(Color.GREEN)
 
         val failureNotificationBuilder = NotificationCompat.Builder(applicationContext, GymBroApp.CHANNEL_ID)
             .setSmallIcon(R.drawable.baseline_backup_24)
-            .setContentTitle("GymBro Data Backup")
-            .setContentText("Backup Failed")
+            .setContentTitle("Backup Failed")
+            .setContentText("Something went wrong.")
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setAutoCancel(true)
             .setOnlyAlertOnce(true)
-            .setColor(Color.GREEN)
 
         if (ActivityCompat.checkSelfPermission(
                 applicationContext,

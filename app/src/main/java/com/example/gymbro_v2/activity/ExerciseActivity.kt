@@ -190,6 +190,7 @@ class ExerciseActivity : AppCompatActivity() {
             .setNegativeButton("Cancel") { dialog, _ ->
                 dialog.dismiss()
             }
+            .setCancelable(false)
             .show()
     }
 
@@ -220,6 +221,7 @@ class ExerciseActivity : AppCompatActivity() {
             .setNegativeButton("Cancel") { dialog, _ ->
                 dialog.dismiss()
             }
+            .setCancelable(false)
             .show()
     }
 }

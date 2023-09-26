@@ -53,7 +53,6 @@ class HomeActivity : AppCompatActivity() {
         }
 
         val scheduleAdapter = ScheduleAdapter(
-            this,
             scheduleClickListener = {
                 val intent = Intent(this, ScheduleActivity::class.java)
                 intent.putExtra("scheduleId", it.scheduleId)
@@ -68,6 +67,7 @@ class HomeActivity : AppCompatActivity() {
         homeViewModel.getAllSchedules().observe(this) {
             if (it.isEmpty()) {
                 binding.homeTvEmptyRv.visibility = View.VISIBLE
+                scheduleAdapter.submitList(emptyList())
                 return@observe
             } else {
                 binding.homeTvEmptyRv.visibility = View.GONE

@@ -124,6 +124,7 @@ class ScheduleActivity : AppCompatActivity() {
             .setNegativeButton("Cancel") { dialog, _ ->
                 dialog.dismiss()
             }
+            .setCancelable(false)
             .show()
     }
 }
