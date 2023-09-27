@@ -30,8 +30,7 @@ class ScheduleAdapter(
             val d = Date()
             val dayOfTheWeek: String = sdf.format(d)
             if (daysPlannedOn.contains(dayOfTheWeek)) {
-                binding.scheduleTitle.setBackgroundColor(context.getColor(R.color.purple_500))
-                binding.scheduleDescription.setTextColor(context.getColor(R.color.black))
+                binding.scheduleConstraintLayout.setBackgroundColor(context.getColor(com.google.android.material.R.color.design_default_color_primary_variant))
             }
             binding.homeListItemParentLayout.setOnClickListener {
                 scheduleClickListener(schedule)
