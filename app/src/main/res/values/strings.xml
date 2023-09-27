@@ -55,7 +55,6 @@
     <string name="kgs">KGS</string>
     <string name="complete_set">Complete Set</string>
     <string name="logs">Logs</string>
-    <string name="today_s_logs">Today\'s Logs</string>
     <string name="set">Set</string>
     <string name="weight">Weight (kgs)</string>
     <string name="edit_reps">Edit Reps</string>
@@ -77,5 +76,6 @@
     <string name="sync">Sync</string>
     <string name="data_settings">Data Settings</string>
     <string name="import_data">Import Data</string>
+    <string name="date">Date</string>
 
 </resources>

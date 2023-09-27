@@ -76,15 +76,8 @@ class ExerciseActivity : AppCompatActivity() {
         }
         binding.rvTodaysLogs.adapter = logAdapter
         exerciseViewModel.todaysLogs.observe(this) {
-            val finalList = mutableListOf<Log>()
-            for (i in it.first().logs) {
-                if (i.date == date) {
-                    finalList.add(i)
-                }
-            }
-            logAdapter.submitList(finalList)
-
-            if (finalList.isEmpty()) {
+            logAdapter.submitList(it.first().logs)
+            if (it.first().logs.isEmpty()) {
                 binding.linearLayoutLogItemLabels.visibility = View.GONE
                 binding.tvEmptyLogs.visibility = View.VISIBLE
             } else {

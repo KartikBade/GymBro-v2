@@ -8,6 +8,15 @@
     android:padding="8dp">
 
     <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        tools:text="10.12.23"
+        android:gravity="center"
+        android:textSize="11sp"/>
+
+    <TextView
         android:id="@+id/tv_set"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

@@ -18,6 +18,7 @@ class LogAdapter(
     ): RecyclerView.ViewHolder(binding.root) {
 
         fun bind(log: Log, setCount: Int) {
+            binding.tvDate.text = log.date
             binding.tvSet.text = setCount.toString()
             binding.tvReps.text = log.reps.toString()
             binding.tvWeight.text = log.weight.toString()
