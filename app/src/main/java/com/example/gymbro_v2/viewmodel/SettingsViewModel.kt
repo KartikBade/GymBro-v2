@@ -3,15 +3,13 @@ package com.example.gymbro_v2.viewmodel
 import android.app.AlertDialog
 import android.app.Application
 import android.content.Context
-import android.content.DialogInterface
-import android.util.Log
-import android.widget.Toast
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import androidx.lifecycle.ViewModel
 import androidx.work.*
 import com.example.gymbro_v2.workmanager.BackupWorker
 import com.example.gymbro_v2.workmanager.ImportWorker
 import dagger.hilt.android.lifecycle.HiltViewModel
-import java.util.concurrent.ExecutionException
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -38,7 +36,9 @@ class SettingsViewModel @Inject constructor(
                     )
 
                 workManager.enqueueUniquePeriodicWork("Backup", ExistingPeriodicWorkPolicy.CANCEL_AND_REENQUEUE, backupWorkRequestBuilder.build())
-                checkWorkerStatus("Backup", context)
+                if (!isConnected(context)) {
+                    showAlertDialog(context)
+                }
             }
             2 -> {
                 workManager.cancelUniqueWork("Backup")
@@ -50,7 +50,9 @@ class SettingsViewModel @Inject constructor(
                     )
 
                 workManager.enqueueUniquePeriodicWork("Backup", ExistingPeriodicWorkPolicy.CANCEL_AND_REENQUEUE, backupWorkRequestBuilder.build())
-                checkWorkerStatus("Backup", context)
+                if (!isConnected(context)) {
+                    showAlertDialog(context)
+                }
             }
             3 -> {
                 workManager.cancelUniqueWork("Backup")
@@ -62,7 +64,9 @@ class SettingsViewModel @Inject constructor(
                     )
 
                 workManager.enqueueUniqueWork("Backup", ExistingWorkPolicy.REPLACE, backupWorkRequestBuilder.build())
-                checkWorkerStatus("Backup", context)
+                if (!isConnected(context)) {
+                    showAlertDialog(context)
+                }
             }
         }
     }
@@ -77,31 +81,34 @@ class SettingsViewModel @Inject constructor(
             )
 
         workManager.enqueueUniqueWork("Import", ExistingWorkPolicy.REPLACE, importWorkRequestBuilder.build())
-        checkWorkerStatus("Import", context)
+        if (!isConnected(context)) {
+            showAlertDialog(context)
+        }
     }
 
-    private fun checkWorkerStatus(uniqueWorkName: String, context: Context) {
-        val statuses = workManager.getWorkInfosForUniqueWork(uniqueWorkName)
-        var workInfoList: List<WorkInfo> = emptyList()
-        try {
-            workInfoList = statuses.get()
-        } catch (e: ExecutionException) {
-            Log.d("SettingsViewModel", "ExecutionException in isWorkScheduled: $e")
-        } catch (e: InterruptedException) {
-            Log.d("SettingsViewModel", "InterruptedException in isWorkScheduled: $e")
-        }
-        for (workInfo in workInfoList) {
-            val state = workInfo.state
-            if (state == WorkInfo.State.ENQUEUED) {
-                AlertDialog.Builder(context)
-                    .setTitle("$uniqueWorkName Process Pending")
-                    .setMessage("The process will resume once the device is connected to the internet.")
-                    .setNeutralButton("Ok") { dialog, _ ->
-                        dialog.cancel()
-                    }
-                    .create()
-                    .show()
+    private fun showAlertDialog(context: Context) {
+        AlertDialog.Builder(context)
+            .setTitle("Process Pending")
+            .setMessage("The process will resume once the device is connected to the internet.")
+            .setNeutralButton("Ok") { dialog, _ ->
+                dialog.cancel()
+            }
+            .create()
+            .show()
+    }
+
+    private fun isConnected(context: Context): Boolean {
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+        val network = connectivityManager.activeNetwork
+        if (network != null) {
+            val networkCapabilities = connectivityManager.getNetworkCapabilities(network)
+            if (networkCapabilities != null) {
+                return networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
             }
         }
+
+        return false
     }
 }

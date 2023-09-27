@@ -100,6 +100,9 @@ class UserRepository(
                     .collection("schedules")
                     .document(schedule.scheduleId.toString())
                     .delete()
+                    .addOnFailureListener {
+                        deletionSuccess = false
+                    }
                     .await()
             }
 
@@ -169,7 +172,7 @@ class UserRepository(
                 }
             }
         }
-        if (scheduleSuccess && exerciseSuccess && logSuccess) {
+        if (scheduleSuccess && exerciseSuccess && logSuccess && deletionSuccess) {
             return true
         }
         return false
