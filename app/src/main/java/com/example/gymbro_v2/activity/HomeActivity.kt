@@ -5,12 +5,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
+import coil.load
 import com.example.gymbro_v2.R
 import com.example.gymbro_v2.adapter.ScheduleAdapter
 import com.example.gymbro_v2.databinding.ActivityHomeBinding
 import com.example.gymbro_v2.viewmodel.HomeViewModel
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -30,6 +34,9 @@ class HomeActivity : AppCompatActivity() {
         toggle.syncState()
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        binding.homeNavView.getHeaderView(0).findViewById<TextView>(R.id.tv_email).text = homeViewModel.getUserEmail()
+        binding.homeNavView.getHeaderView(0).findViewById<TextView>(R.id.tv_profile_photo).text = homeViewModel.getProfilePhotoLetter()
 
         binding.homeNavView.setNavigationItemSelectedListener {
             when (it.itemId) {
@@ -86,5 +93,10 @@ class HomeActivity : AppCompatActivity() {
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finishAffinity()
     }
 }

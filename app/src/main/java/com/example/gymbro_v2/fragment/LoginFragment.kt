@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.gymbro_v2.R
@@ -36,8 +37,7 @@ class LoginFragment : Fragment() {
             val email = binding.loginEtEmail.text.toString().trim()
             val password = binding.loginEtPassword.text.toString().trim()
 
-            if (email.isNotBlank() && password.isNotBlank()
-            ) {
+            if (email.isNotBlank() && password.isNotBlank()) {
                 authViewModel.loginUser(email, password)
                 if (
                     !activity?.getSharedPreferences(getString(R.string.user_shared_pref), 0)
@@ -47,6 +47,8 @@ class LoginFragment : Fragment() {
                     startActivity(intent)
                     activity?.finish()
                 }
+            } else {
+                Toast.makeText(view.context, "Blank Username or Password", Toast.LENGTH_SHORT).show()
             }
         }
     }

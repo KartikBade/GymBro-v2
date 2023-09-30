@@ -8,6 +8,7 @@ import com.example.gymbro_v2.R
 import com.example.gymbro_v2.activity.HomeActivity
 import com.example.gymbro_v2.model.User
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -23,48 +24,64 @@ class AuthRepository(
     private val userSharedPref = context.getSharedPreferences(context.getString(R.string.user_shared_pref), 0)
 
     suspend fun signupUser(user: User, password: String) {
-        auth.createUserWithEmailAndPassword(user.email, password)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    addToFirestore(user)
+        try {
+            auth.createUserWithEmailAndPassword(user.email, password)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        addToFirestore(user)
 
-                    userSharedPref.edit()
-                        .putString(context.getString(R.string.user_shared_pref_username), user.username)
-                        .apply()
+                        userSharedPref.edit()
+                            .putString(
+                                context.getString(R.string.user_shared_pref_username),
+                                user.username
+                            )
+                            .apply()
 
-                } else {
-                    Log.e("AuthRepo", task.exception.toString())
-                }
-            }.await()
+                    } else {
+                        Log.e("AuthRepo", task.exception.toString())
+                    }
+                }.await()
+        } catch (e: java.lang.Exception) {
+            Log.e("AuthRepo", "Error: ${e.localizedMessage}")
+        }
     }
 
     suspend fun loginUser(email: String, password: String) {
-        auth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    CoroutineScope(Dispatchers.IO).launch {
-                        firebaseDatabase
-                            .collection("users")
-                            .document(email)
-                            .get()
-                            .addOnSuccessListener { doc ->
-                                doc.getString(context.getString(R.string.user_firebase_username))?.let { username ->
+        try {
+            auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        CoroutineScope(Dispatchers.IO).launch {
+                            firebaseDatabase
+                                .collection("users")
+                                .document(email)
+                                .get()
+                                .addOnSuccessListener { doc ->
+                                    doc.getString(context.getString(R.string.user_firebase_username))
+                                        ?.let { username ->
 
-                                    userSharedPref.edit()
-                                        .putString(context.getString(R.string.user_shared_pref_username), username)
-                                        .apply()
+                                            userSharedPref.edit()
+                                                .putString(
+                                                    context.getString(R.string.user_shared_pref_username),
+                                                    username
+                                                )
+                                                .apply()
 
-                                    val intent = Intent(context, HomeActivity::class.java)
-                                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                                    context.startActivity(intent)
-                                }
-                            }.await()
+                                            val intent = Intent(context, HomeActivity::class.java)
+                                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                                            context.startActivity(intent)
+                                        }
+                                }.await()
+                        }
+                    } else {
+                        Toast.makeText(context, "User Doesn't Exist", Toast.LENGTH_SHORT).show()
                     }
-                } else {
-                    Log.e("AuthRepo", task.exception.toString())
-                    Toast.makeText(context, "User Doesn't Exist", Toast.LENGTH_SHORT).show()
-                }
-            }.await()
+                }.await()
+        } catch (e: FirebaseAuthInvalidCredentialsException) {
+            Toast.makeText(context, "Invalid Username or Password", Toast.LENGTH_SHORT).show()
+        } catch (e: java.lang.Exception) {
+            Toast.makeText(context, "Unknown Error Occurred", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun addToFirestore(user: User) {

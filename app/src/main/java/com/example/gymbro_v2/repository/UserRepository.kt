@@ -1,6 +1,8 @@
 package com.example.gymbro_v2.repository
 
 import android.content.Context
+import android.widget.ImageView
+import coil.load
 import com.example.gymbro_v2.R
 import com.example.gymbro_v2.database.ScheduleDatabase
 import com.example.gymbro_v2.database.entities.Exercise
@@ -83,6 +85,10 @@ class UserRepository(
         scheduleDatabase.getDao().deleteAllSchedules()
         scheduleDatabase.getDao().deleteScheduleExerciseCrossRefs()
     }
+
+    fun getUserEmail() = firebaseAuth.currentUser?.email
+
+    fun getProfilePhotoLetter() = firebaseAuth.currentUser?.email?.get(0)?.uppercase()
 
     suspend fun dataBackup(): Boolean {
         var deletionSuccess = true

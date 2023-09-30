@@ -77,5 +77,6 @@
     <string name="data_settings">Data Settings</string>
     <string name="import_data">Import Data</string>
     <string name="date">Date</string>
+    <string name="profile_photo">Profile Photo</string>
 
 </resources>
