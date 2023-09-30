@@ -28,6 +28,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             tools:text="K"
+            android:textColor="@color/white"
             android:background="@color/design_default_color_secondary"
             android:textSize="30sp" />
     </androidx.cardview.widget.CardView>
@@ -36,7 +37,7 @@
         android:id="@+id/tv_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
+        android:textColor="@color/permanent_white"
         tools:text="useremail@gmail.com"
         android:padding="16dp"
         android:gravity="center"

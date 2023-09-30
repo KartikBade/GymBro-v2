@@ -73,8 +73,6 @@ class AuthRepository(
                                         }
                                 }.await()
                         }
-                    } else {
-                        Toast.makeText(context, "User Doesn't Exist", Toast.LENGTH_SHORT).show()
                     }
                 }.await()
         } catch (e: FirebaseAuthInvalidCredentialsException) {
