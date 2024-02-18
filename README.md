@@ -18,7 +18,7 @@ Gymbro is a gym progress tracker application. It stores the progress made in the
   <li><h3>Coroutines</h3> - For asynchronous operations.</li>
   <li><h3>LiveData</h3> - Data objects that notify views when the underlying database changes.</li>
   <li><h3>ViewModel</h3> - Stores UI-related data that isn't destroyed on UI changes.</li>
-  <li><h3>DataBinding</h3> - Generates a binding class for each XML layout file present in that module and allows you to more easily write code that interacts with views.</li>
+  <li><h3>ViewBinding</h3> - Generates a binding class for each XML layout file present in that module and allows you to more easily write code that interacts with views.</li>
   <li><h3>Room</h3> - SQLite object mapping library.</li>
   <li><h3>Hilt-Dagger</h3> - Standard library to incorporate Dagger dependency injection into an Android application.</li>
   <li><h3>Retrofit</h3> - A type-safe HTTP client for Android and Java.</li>
