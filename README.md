@@ -25,5 +25,6 @@
     <li>Room - SQLite object mapping library.</li>
     <li>Hilt-Dagger - Standard library to incorporate Dagger dependency injection into an Android application.</li>
     <li>Retrofit - A type-safe HTTP client for Android and Java.</li>
+    <li>MVVM - Architecture pattern to implement separation of concerns and simplification of code.</li>
   </ul>
 </h3>
