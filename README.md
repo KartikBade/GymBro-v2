@@ -7,7 +7,7 @@
 <img src="https://github.com/KartikBade/GymBro-v2/assets/65703182/f4a3f695-21ab-44f0-9714-4a0f2556ff45" alt="Schedule List" width="220"/> &nbsp; &nbsp; &nbsp;
 <img src="https://github.com/KartikBade/GymBro-v2/assets/65703182/eefa13c8-0e55-4b79-ab72-19404492db63" alt="Schedule List" width="220"/> &nbsp; &nbsp; &nbsp;
 
-Gymbro is a gym progress tracker application. It stores the progress made in the gym locally using RoomDd. It has manual and automatic backup functionality which backs up all the locally stored data to Firebase.
+Gymbro is a gym progress tracker application. It stores the progress made in the gym locally using RoomDb. It has manual and automatic backup functionality which backs up all the locally stored data to Firebase.
 
 <h1>
   <b>Built With</b>
